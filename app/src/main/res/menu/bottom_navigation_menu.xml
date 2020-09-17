@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/navigation_eintrag"
+      android:icon="@drawable/ic_upload"
+      android:title="Eintrag" />
+
+  <item
+      android:id="@+id/navigation_lbsuchen"
+      android:icon="@drawable/ic_binoculars"
+      android:title="Lagerbestand suchen" />
+
+  <item
+      android:id="@+id/navigation_kateghinz"
+      android:icon="@drawable/ic_edit"
+      android:title="Kategorie hinzufügen" />
+</menu>
