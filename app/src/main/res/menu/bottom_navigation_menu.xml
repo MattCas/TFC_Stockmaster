@@ -14,4 +14,7 @@
       android:id="@+id/navigation_kateghinz"
       android:icon="@drawable/ic_edit"
       android:title="Kategorie hinzufügen" />
+  <item
+      android:id="@+id/scan_button"
+      android:title="Lieferschein Scannen" />
 </menu>
