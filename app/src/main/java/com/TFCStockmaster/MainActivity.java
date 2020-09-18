@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import com.TFCStockmaster.fragments.EintragFragment;
-import com.TFCStockmaster.fragments.KatHinzFragment;
-import com.TFCStockmaster.fragments.LBSuchenFragment;
+import com.TFCStockmaster.fragments.NewEntryFragment;
+import com.TFCStockmaster.fragments.CategoryEditFragment;
+import com.TFCStockmaster.fragments.StockSearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     bottomNavigation = findViewById(R.id.bottom_navigation);
     bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-    openFragment(EintragFragment.newInstance("", ""));
+    openFragment(NewEntryFragment.newInstance("", ""));
   }
 
   public void openFragment(Fragment fragment) {
@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
           switch (item.getItemId()) {
             case R.id.navigation_eintrag:
-              openFragment(EintragFragment.newInstance("", ""));
+              openFragment(NewEntryFragment.newInstance("", ""));
               return true;
             case R.id.navigation_lbsuchen:
-              openFragment(LBSuchenFragment.newInstance("", ""));
+              openFragment(StockSearchFragment.newInstance("", ""));
               return true;
             case R.id.navigation_kateghinz:
-              openFragment(KatHinzFragment.newInstance("", ""));
+              openFragment(CategoryEditFragment.newInstance("", ""));
               return true;
           }
           return false;
