@@ -12,7 +12,7 @@
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="200dp"
-      android:text="QR Code Scannen"
+      android:text="@string/qr_scan"
       android:textColor="#FFFFFF"
       android:textAllCaps="false"
       android:background="@drawable/tfc_custom_button"/>
@@ -22,7 +22,7 @@
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="100dp"
-      android:text="Charge Nummer Suchen"
+      android:text="@string/stock_id_lookup"
       android:textColor="#FFFFFF"
       android:textAllCaps="false"
       android:background="@drawable/tfc_custom_button"/>

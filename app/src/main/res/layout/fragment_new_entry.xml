@@ -12,7 +12,7 @@
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="300dp"
-      android:text="Eintrag Bearbeiten"
+      android:text="@string/modify_entry"
       android:textColor="#FFFFFF"
       android:textAllCaps="false"
       android:background="@drawable/tfc_custom_button"/>
@@ -23,7 +23,7 @@
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="200dp"
-      android:text="Manuell Eintrag"
+      android:text="@string/manual_entry"
       android:textColor="#FFFFFF"
       android:textAllCaps="false"
       android:background="@drawable/tfc_custom_button"/>
@@ -33,7 +33,7 @@
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="100dp"
-      android:text="Lieferschein Scannen"
+      android:text="@string/delivery_note_scan"
       android:textColor="#FFFFFF"
       android:textAllCaps="false"
       android:background="@drawable/tfc_custom_button"/>
