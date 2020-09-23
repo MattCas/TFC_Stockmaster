@@ -13,19 +13,6 @@
         android:textSize="30dp"
         android:layout_centerHorizontal="true"/>
 
-    <DatePicker
-        android:id="@+id/new_entry_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:datePickerMode="spinner"
-        android:calendarViewShown="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="377dp"
-        android:layout_marginEnd="250dp"
-        android:layout_marginRight="250dp"
-        android:ems="10"
-        android:inputType="date" />
-
     <EditText
         android:id="@+id/man_entry_material"
         android:layout_width="300dp"
@@ -49,22 +36,23 @@
         android:inputType="textPersonName"
         android:hint="G/M2" />
 
-    <TextView
-        android:id="@+id/man_entry_date_textview"
-        android:layout_width="150dp"
+    <EditText
+        android:id="@+id/man_entry_date_text"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="307dp"
-        android:ems="10" />
+        android:layout_marginTop="284dp"
+        android:ems="10"
+        android:hint="Enter Delivery Date" />
 
     <Button
-        android:id="@+id/man_entry_set_date_button"
+        android:id="@+id/man_entry_submit_button"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="600dp"
-        android:text="@string/set_date"
+        android:text="@string/submit"
         android:textColor="#FFFFFF"
         android:textAllCaps="false"
         android:background="@drawable/tfc_custom_button"/>
