@@ -1,11 +1,13 @@
 <resources>
-  <string name="app_name">TFC Stockmaster</string>
+    <string name="app_name">TFC Stockmaster</string>
 
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
-  <string name="delivery_note_scan">Lieferschein Scannen</string>
-  <string name="manual_entry">Manuell Eintrag</string>
-  <string name="modify_entry">Eintrag Bearbeiten</string>
-  <string name="qr_scan">QRCode Scannen</string>
-  <string name="stock_id_lookup">Charge Nummer Suchen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delivery_note_scan">Lieferschein Scannen</string>
+    <string name="manual_entry">Manuell Eintrag</string>
+    <string name="modify_entry">Eintrag Bearbeiten</string>
+    <string name="qr_scan">QRCode Scannen</string>
+    <string name="stock_id_lookup">Charge Nummer Suchen</string>
+    <string name="man_form_label">Please fill in all fields</string>
+    <string name="set_date">Set Date</string>
 </resources>
