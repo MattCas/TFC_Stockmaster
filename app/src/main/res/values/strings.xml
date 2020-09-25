@@ -11,4 +11,5 @@
     <string name="man_form_label">Please fill in all fields</string>
     <string name="set_date">Set Date</string>
     <string name="submit">Submit</string>
+    <string name="edit_entry_title">Edit Fields to Amend</string>
 </resources>

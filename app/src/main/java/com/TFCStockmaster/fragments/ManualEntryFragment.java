@@ -17,11 +17,6 @@ import com.TFCStockmaster.R;
 
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ManualEntryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ManualEntryFragment extends Fragment {
     DatePickerDialog picker;
     EditText eText;
@@ -50,9 +45,7 @@ public class ManualEntryFragment extends Fragment {
                 int month = cldr.get(Calendar.MONTH);
                 int year = cldr.get(Calendar.YEAR);
                 // date picker dialog
-                // Find and set correct context here **********************************************
-                picker = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
+                picker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);

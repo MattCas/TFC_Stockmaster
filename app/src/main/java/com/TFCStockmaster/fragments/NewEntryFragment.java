@@ -44,18 +44,31 @@ public class NewEntryFragment extends Fragment {
           public void onClick(View view) {
             //Toast toast = Toast.makeText(getActivity(), "ManEntryButtonPressed", Toast.LENGTH_SHORT);
             //toast.show();
-            // Create new fragment and transaction
+
+            // Create new fragment and transaction then open it
             Fragment newFragment = new ManualEntryFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack
             transaction.replace(((ViewGroup)(getView().getParent())).getId(), newFragment);
             transaction.addToBackStack(null);
-            // Commit the transaction
             transaction.commit();
           }
         });
+    final Button editEntryButton = view.findViewById(R.id.entry_edit_button);
+    editEntryButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        // Create new fragment and transaction then open it
+        Fragment newFragment = new EntryEditFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        transaction.replace(((ViewGroup)(getView().getParent())).getId(), newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+      }
+    });
     return view;
   }
 }
