@@ -21,7 +21,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="122dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Carbonflies"
         android:autofillHints="" />
 
@@ -33,7 +32,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="202dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="G/M2" />
 
     <EditText
