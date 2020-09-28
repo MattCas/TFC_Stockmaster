@@ -5,13 +5,17 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.TFCStockmaster.MainActivity;
 import com.TFCStockmaster.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class EntryEditFragment extends Fragment {
 
@@ -21,6 +25,8 @@ public class EntryEditFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    //EditText userStockNum;
+
 
     public EntryEditFragment() {
         // Required empty public constructor
@@ -48,12 +54,18 @@ public class EntryEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_entry_edit, container, false);
         final Button editEntryRetrieveButton = view.findViewById(R.id.edit_entry_retrieve_button);
+        final EditText userEnteredStockid = view.findViewById(R.id.edit_entry_stock_number);
         editEntryRetrieveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast toast = Toast.makeText(getActivity(), "EditEntryButtonPressed", Toast.LENGTH_SHORT);
                 toast.show();
+                // Have to setContentview before fetching text from EditText
+                //EditText userStockNum = view.findViewById(R.id.edit_entry_stock_number);
+                String stockID = userEnteredStockid.getText().toString();
                 // Enter code to retrieve entry details here
+                ((MainActivity) getActivity()).SearchDB(view, stockID); // Replace hardcoded ID with that in textedit box
+                //Log.e("RES", stockID);
             }
         });
         return view;

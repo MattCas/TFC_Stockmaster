@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     bottomNavigation = findViewById(R.id.bottom_navigation);
     bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
     openFragment(NewEntryFragment.newInstance("", ""));
-    CheckConnection(findViewById(android.R.id.content).getRootView());
+    //CheckConnection(findViewById(android.R.id.content).getRootView());
   }
-
+   // Basic check for database connection established
   public void CheckConnection(View view){
     try{
       if(ConnectionClass.con == null){
@@ -42,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
       if(ConnectionClass.con != null){
         Statement stmt = ConnectionClass.con.createStatement();
-        String sql = "select * from AndroidSample";
+        String sql = "select * from StockSample";
         ResultSet rs = stmt.executeQuery(sql);
         Log.e("ASK", "-------------------");
         while(rs.next()){
           Log.e("ASK",rs.getString("Sample"));
+          Log.e("ASK",rs.getString("StockID"));
+          Log.e("ASK",rs.getString("Category"));
         }
         Log.e("ASK", "------------------");
 
@@ -58,6 +60,35 @@ public class MainActivity extends AppCompatActivity {
     catch(Exception e){
         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         Log.e("ASK", e.getMessage());
+    }
+  }
+
+  public void SearchDB(View view, String stockID){
+    try{
+      if(ConnectionClass.con == null){
+        new ConnectionClass().setConnection();
+      }
+
+      if(ConnectionClass.con != null){
+        Statement stmt = ConnectionClass.con.createStatement();
+        String sql = "select * from StockSample WHERE StockID='" + stockID + "';";
+        ResultSet rs = stmt.executeQuery(sql);
+        Log.e("ASK", "-------------------");
+        while(rs.next()){
+          Log.e("ASK",rs.getString("Sample"));
+          Log.e("ASK",rs.getString("StockID"));
+          Log.e("ASK",rs.getString("Category"));
+        }
+        Log.e("ASK", "------------------");
+
+        Toast.makeText(getApplicationContext(), "Search Query executed successfully", Toast.LENGTH_LONG).show();
+      } else {
+        Toast.makeText(getApplicationContext(), "Connection to server failed!", Toast.LENGTH_LONG).show();
+      }
+    }
+    catch(Exception e){
+      Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+      Log.e("ASK", e.getMessage());
     }
   }
 
