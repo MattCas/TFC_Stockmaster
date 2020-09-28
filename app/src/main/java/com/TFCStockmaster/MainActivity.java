@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         ResultSet rs = stmt.executeQuery(sql);
         Log.e("ASK", "-------------------");
         while(rs.next()){
-          Log.e("ASK",rs.getString("name"));
+          Log.e("ASK",rs.getString("Zeit"));
         }
         Log.e("ASK", "------------------");
 

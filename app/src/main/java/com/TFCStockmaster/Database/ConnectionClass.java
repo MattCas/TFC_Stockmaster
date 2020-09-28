@@ -13,8 +13,8 @@ public class ConnectionClass {
         try{
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String ip = "192.168.2.3";
-            String ConnURL = "jdbc:jtds:sqlserver://"+ ip + ";port= 1430" + ";user=PLC;password=presse;databasename=MASCHINENDB;";
+            String ip = "192.168.2.3:1430";
+            String ConnURL = "jdbc:jtds:sqlserver://"+ ip + ";user=PLC;password=presse;databasename=MASCHINEN;";
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
             con = DriverManager.getConnection(ConnURL);
             Log.e("ASK","Connection Called");
