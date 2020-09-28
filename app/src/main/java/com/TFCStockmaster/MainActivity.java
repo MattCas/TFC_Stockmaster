@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
       if(ConnectionClass.con != null){
         Statement stmt = ConnectionClass.con.createStatement();
-        String sql = "select * from TablePresse1";
+        String sql = "select * from AndroidSample";
         ResultSet rs = stmt.executeQuery(sql);
         Log.e("ASK", "-------------------");
         while(rs.next()){
-          Log.e("ASK",rs.getString("Zeit"));
+          Log.e("ASK",rs.getString("Sample"));
         }
         Log.e("ASK", "------------------");
 
