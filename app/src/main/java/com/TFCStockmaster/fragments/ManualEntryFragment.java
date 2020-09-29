@@ -6,11 +6,14 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.TFCStockmaster.MainActivity;
 import com.TFCStockmaster.R;
@@ -35,8 +38,10 @@ public class ManualEntryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manual_entry, container, false);
+        // Calendar related variables
         eText=(EditText) view.findViewById(R.id.man_entry_date_text);
         eText.setInputType(InputType.TYPE_NULL);
+        // Calendar Listener
         eText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +57,28 @@ public class ManualEntryFragment extends Fragment {
                             }
                         }, year, month, day);
                 picker.show();
+            }
+        });
+
+        // Submit Button variables
+        final Button manEntrySubmitButton = view.findViewById(R.id.man_entry_submit_button);
+        final EditText manEntryMaterial = view.findViewById(R.id.man_entry_material);
+        final EditText manEntrySpecs = view.findViewById(R.id.man_entry_specs);
+        final EditText manEntryDate = view.findViewById(R.id.man_entry_date_text);
+        // Submit Button listener
+        manEntrySubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast toast = Toast.makeText(getActivity(), "manEntrySubmitButton Pressed", Toast.LENGTH_SHORT);
+                toast.show();
+                // Have to setContentview before fetching text from EditText
+
+                String material = manEntryMaterial.getText().toString();
+                String specs = manEntrySpecs.getText().toString();
+                String deliveryDate = manEntryDate.getText().toString();
+                // Enter code to submit entry details here
+                ((MainActivity) getActivity()).InsertDB(view, material, specs, deliveryDate);
+                //Log.e("RES", material+specs+deliveryDate);
             }
         });
         // Inflate the layout for this fragment
