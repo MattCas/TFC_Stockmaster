@@ -38,4 +38,43 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="Charge Nr" />
+
+    <EditText
+        android:id="@+id/edit_entry_material"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="250dp"
+        android:ems="10"
+        android:hint="Material" />
+
+    <EditText
+        android:id="@+id/edit_entry_specs"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="350dp"
+        android:ems="10"
+        android:hint="Specs" />
+
+    <EditText
+        android:id="@+id/edit_entry_date"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="450dp"
+        android:ems="10"
+        android:hint="Date" />
 </RelativeLayout>

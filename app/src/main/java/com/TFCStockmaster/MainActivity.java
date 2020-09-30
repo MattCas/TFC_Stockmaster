@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
   // Search DB by stockID
   // TODO Return results as usable variables, rather than void method
-  public void SearchDB(View view, String stockID){
+  public void SearchDB(View view, String stockID, EditText material, EditText specs, EditText date){
     try{
       if(ConnectionClass.con == null){
         new ConnectionClass().setConnection();
@@ -49,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
         Log.e("ASK", "-------------------");
         while(rs.next()){
           Log.e("ASK",rs.getString("Sample"));
+          date.setText(rs.getString("Sample"));
           Log.e("ASK",rs.getString("StockID"));
+          specs.setText(rs.getString("StockID"));
           Log.e("ASK",rs.getString("Category"));
+          material.setText(rs.getString("Category"));
         }
         Log.e("ASK", "------------------");
 

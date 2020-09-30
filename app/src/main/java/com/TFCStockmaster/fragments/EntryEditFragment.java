@@ -55,6 +55,9 @@ public class EntryEditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_entry_edit, container, false);
         final Button editEntryRetrieveButton = view.findViewById(R.id.edit_entry_retrieve_button);
         final EditText userEnteredStockid = view.findViewById(R.id.edit_entry_stock_number);
+        final EditText material = view.findViewById(R.id.edit_entry_material);
+        final EditText specs = view.findViewById(R.id.edit_entry_specs);
+        final EditText date = view.findViewById(R.id.edit_entry_date);
         editEntryRetrieveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +67,7 @@ public class EntryEditFragment extends Fragment {
                 //EditText userStockNum = view.findViewById(R.id.edit_entry_stock_number);
                 String stockID = userEnteredStockid.getText().toString();
                 // Enter code to retrieve entry details here
-                ((MainActivity) getActivity()).SearchDB(view, stockID); // Replace hardcoded ID with that in textedit box
+                ((MainActivity) getActivity()).SearchDB(view, stockID,material,specs,date); // Replace hardcoded ID with that in textedit box
                 //Log.e("RES", stockID);
             }
         });
