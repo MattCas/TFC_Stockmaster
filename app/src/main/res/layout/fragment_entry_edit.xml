@@ -77,4 +77,15 @@
         android:layout_marginTop="450dp"
         android:ems="10"
         android:hint="Date" />
+
+    <Button
+        android:id="@+id/edit_entry_send_button"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="600dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/tfc_custom_button"
+        android:text="@string/modify_entry"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
 </RelativeLayout>

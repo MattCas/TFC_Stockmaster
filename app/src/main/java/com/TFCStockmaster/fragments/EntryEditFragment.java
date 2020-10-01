@@ -61,13 +61,13 @@ public class EntryEditFragment extends Fragment {
         editEntryRetrieveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(getActivity(), "EditEntryButtonPressed", Toast.LENGTH_SHORT);
-                toast.show();
+                //Toast toast = Toast.makeText(getActivity(), "EditEntryButtonPressed", Toast.LENGTH_SHORT);
+                //toast.show();
                 // Have to setContentview before fetching text from EditText
                 //EditText userStockNum = view.findViewById(R.id.edit_entry_stock_number);
                 String stockID = userEnteredStockid.getText().toString();
                 // Enter code to retrieve entry details here
-                ((MainActivity) getActivity()).SearchDB(view, stockID,material,specs,date); // Replace hardcoded ID with that in textedit box
+                ((MainActivity) getActivity()).SearchDB(view, stockID,material,specs,date);
                 //Log.e("RES", stockID);
             }
         });

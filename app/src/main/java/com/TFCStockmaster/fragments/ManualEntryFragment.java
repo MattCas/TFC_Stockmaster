@@ -1,10 +1,13 @@
 package com.TFCStockmaster.fragments;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,8 +72,8 @@ public class ManualEntryFragment extends Fragment {
         manEntrySubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(getActivity(), "manEntrySubmitButton Pressed", Toast.LENGTH_SHORT);
-                toast.show();
+                //Toast toast = Toast.makeText(getActivity(), "manEntrySubmitButton Pressed", Toast.LENGTH_SHORT);
+                //toast.show();
                 // Have to setContentview before fetching text from EditText
 
                 String material = manEntryMaterial.getText().toString();
@@ -79,6 +82,19 @@ public class ManualEntryFragment extends Fragment {
                 // Enter code to submit entry details here
                 ((MainActivity) getActivity()).InsertDB(view, material, specs, deliveryDate);
                 //Log.e("RES", material+specs+deliveryDate);
+            }
+        });
+
+        // Submit Button variables
+        final Button manEntryPhotoButton = view.findViewById(R.id.man_entry_photo_button);
+        // Submit Button listener
+        manEntryPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast toast = Toast.makeText(getActivity(), "manEntrySubmitButton Pressed", Toast.LENGTH_SHORT);
+                //toast.show();
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivityForResult(intent, 0);
             }
         });
         // Inflate the layout for this fragment
