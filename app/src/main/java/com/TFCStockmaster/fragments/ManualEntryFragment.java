@@ -1,7 +1,6 @@
 package com.TFCStockmaster.fragments;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -20,7 +19,7 @@ import java.util.Calendar;
 
 public class ManualEntryFragment extends Fragment {
     DatePickerDialog picker;
-    EditText eText;
+    EditText eText, stockid;
     public ManualEntryFragment() {
         // Required empty public constructor
     }
@@ -60,9 +59,10 @@ public class ManualEntryFragment extends Fragment {
 
         // Submit Button variables
         final Button manEntrySubmitButton = view.findViewById(R.id.man_entry_submit_button);
-        final EditText manEntryMaterial = view.findViewById(R.id.man_entry_material);
-        final EditText manEntrySpecs = view.findViewById(R.id.man_entry_specs);
-        final EditText manEntryDate = view.findViewById(R.id.man_entry_date_text);
+        final EditText manEntryMaterial   = view.findViewById(R.id.man_entry_material);
+        final EditText manEntrySpecs      = view.findViewById(R.id.man_entry_specs);
+        final EditText manEntryDate       = view.findViewById(R.id.man_entry_date_text);
+        stockid                           = view.findViewById(R.id.man_entry_stockid);
         // Submit Button listener
         manEntrySubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +91,9 @@ public class ManualEntryFragment extends Fragment {
             public void onClick(View view) {
                 //Toast toast = Toast.makeText(getActivity(), "manEntrySubmitButton Pressed", Toast.LENGTH_SHORT);
                 //toast.show();
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivityForResult(intent, 0);
+                //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                //startActivityForResult(intent, 0);
+                ((MainActivity) getActivity()).takePhoto(stockid.getText().toString());
                 // Get image as variable
                 // Rename image to match charge ID
                 // Submit image to TFC Server rack

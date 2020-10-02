@@ -29,8 +29,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class CameraActivity extends Activity implements OnClickListener {
     private Button mTakePhoto;
@@ -66,11 +64,11 @@ public class CameraActivity extends Activity implements OnClickListener {
         }
     }
 
-    private void takePhoto() {
+    public void takePhoto(String stockid) {
 //		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 //		intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 //		startActivityForResult(intent, 0);
-        dispatchTakePictureIntent();
+        dispatchTakePictureIntent(stockid);
     }
 
     @Override
@@ -205,14 +203,14 @@ public class CameraActivity extends Activity implements OnClickListener {
     static final int REQUEST_TAKE_PHOTO = 1;
     File photoFile = null;
 
-    private void dispatchTakePictureIntent() {
+    private void dispatchTakePictureIntent(String stockid) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
             try {
-                photoFile = createImageFile();
+                photoFile = createImageFile(stockid);
             } catch (IOException ex) {
                 // Error occurred while creating the File
 
@@ -229,10 +227,10 @@ public class CameraActivity extends Activity implements OnClickListener {
     /**
      * http://developer.android.com/training/camera/photobasics.html
      */
-    private File createImageFile() throws IOException {
+    private File createImageFile(String stockid) throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = stockid;
         String storageDir = Environment.getExternalStorageDirectory() + "/picupload";
         File dir = new File(storageDir);
         if (!dir.exists())

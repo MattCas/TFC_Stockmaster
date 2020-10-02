@@ -44,6 +44,16 @@
         android:ems="10"
         android:hint="Enter Delivery Date" />
 
+    <EditText
+        android:id="@+id/man_entry_stockid"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="366dp"
+        android:ems="10"
+        android:hint="Enter stock ID" />
+
     <Button
         android:id="@+id/man_entry_submit_button"
         android:layout_width="180dp"
