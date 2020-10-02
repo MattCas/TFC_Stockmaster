@@ -26,7 +26,13 @@ dependencies {
   implementation 'com.google.android.material:material:1.1.0-alpha10'
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'net.sourceforge.jtds:jtds:1.3.1'
-    testImplementation 'junit:junit:4.12'
+    implementation 'org.apache:apache:23'
+  implementation files('C:\\Users\\m.casula\\Desktop\\httpcomponents-client-4.5.12\\lib\\commons-logging-1.2.jar')
+  implementation files('C:\\Users\\m.casula\\Desktop\\httpcomponents-client-4.5.12\\lib\\httpclient-4.5.12.jar')
+  implementation files('C:\\Users\\m.casula\\Desktop\\httpcomponents-client-4.5.12\\lib\\httpcore-4.4.13.jar')
+  implementation files('C:\\Users\\m.casula\\Desktop\\httpcomponents-client-4.5.12\\lib\\httpmime-4.5.12.jar')
+  testImplementation 'junit:junit:4.12'
   androidTestImplementation 'androidx.test.ext:junit:1.1.0'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
 }
