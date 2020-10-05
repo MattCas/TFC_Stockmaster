@@ -94,6 +94,7 @@ public class ManualEntryFragment extends Fragment {
                 //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 //startActivityForResult(intent, 0);
                 ((MainActivity) getActivity()).takePhoto(stockid.getText().toString());
+                //((MainActivity) getActivity()).sendPhoto();
                 // Get image as variable
                 // Rename image to match charge ID
                 // Submit image to TFC Server rack
