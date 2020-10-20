@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
       DefaultHttpClient httpclient = new DefaultHttpClient();
       try {
         HttpPost httppost = new HttpPost(
-                "http://192.168.2.3:8003/savetofile.php"); // server
+                "http://192.168.2.49:8090/savetofile.php"); // server
 
         MultipartEntity reqEntity = new MultipartEntity();
         reqEntity.addPart("myFile",

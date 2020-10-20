@@ -13,7 +13,7 @@
         android:textSize="30dp"
         android:layout_centerHorizontal="true"/>
 
-    <EditText
+    <Spinner
         android:id="@+id/man_entry_material"
         android:layout_width="300dp"
         android:layout_height="wrap_content"

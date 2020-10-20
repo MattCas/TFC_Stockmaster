@@ -13,4 +13,16 @@
     <string name="submit">Submit</string>
     <string name="edit_entry_title">Edit Fields to Amend</string>
     <string name="take_photo">Take Photo</string>
+
+    <string-array name="planets_array">
+        <item>Carbonflies</item>
+        <item>Harzmenge</item>
+        <item>Hose</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
 </resources>

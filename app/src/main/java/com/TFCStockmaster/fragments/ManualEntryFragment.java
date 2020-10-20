@@ -6,9 +6,12 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
@@ -17,9 +20,11 @@ import com.TFCStockmaster.R;
 
 import java.util.Calendar;
 
-public class ManualEntryFragment extends Fragment {
+public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     DatePickerDialog picker;
     EditText eText, stockid;
+    String material;
+
     public ManualEntryFragment() {
         // Required empty public constructor
     }
@@ -59,19 +64,19 @@ public class ManualEntryFragment extends Fragment {
 
         // Submit Button variables
         final Button manEntrySubmitButton = view.findViewById(R.id.man_entry_submit_button);
-        final EditText manEntryMaterial   = view.findViewById(R.id.man_entry_material);
+        final Spinner manEntryMaterial    = view.findViewById(R.id.man_entry_material);
         final EditText manEntrySpecs      = view.findViewById(R.id.man_entry_specs);
         final EditText manEntryDate       = view.findViewById(R.id.man_entry_date_text);
         stockid                           = view.findViewById(R.id.man_entry_stockid);
+        // Setup material spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.planets_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        manEntryMaterial.setAdapter(adapter);
+        manEntryMaterial.setOnItemSelectedListener(this);
         // Submit Button listener
         manEntrySubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast toast = Toast.makeText(getActivity(), "manEntrySubmitButton Pressed", Toast.LENGTH_SHORT);
-                //toast.show();
-                // Have to setContentview before fetching text from EditText
-
-                String material = manEntryMaterial.getText().toString();
                 String specs = manEntrySpecs.getText().toString();
                 String deliveryDate = manEntryDate.getText().toString();
                 // Enter code to submit entry details here
@@ -104,4 +109,16 @@ public class ManualEntryFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+    // Set Material variable from spinner selection
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        material = parent.getItemAtPosition(pos).toString();
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
 }
+
