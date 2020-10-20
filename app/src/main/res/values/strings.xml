@@ -14,15 +14,18 @@
     <string name="edit_entry_title">Edit Fields to Amend</string>
     <string name="take_photo">Take Photo</string>
 
+    <string name="carbon_specs">G/M2</string>
+    <string name="reshard_specs">KG</string>
+    <string name="foam_specs">Stuck</string>
+    <string name="hose_specs">M</string>
+    <string name="sapl">KG</string>
+
     <string-array name="planets_array">
         <item>Carbonflies</item>
         <item>Harzmenge</item>
+        <item>Harter</item>
+        <item>Schaum</item>
         <item>Hose</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
     </string-array>
 
 </resources>

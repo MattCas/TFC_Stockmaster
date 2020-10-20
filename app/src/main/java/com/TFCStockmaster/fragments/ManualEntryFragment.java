@@ -3,6 +3,7 @@ package com.TFCStockmaster.fragments;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,14 +89,12 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
             }
         });
 
-        // Submit Button variables
+        // Photo Button variables
         final Button manEntryPhotoButton = view.findViewById(R.id.man_entry_photo_button);
-        // Submit Button listener
+        // Photo Button listener
         manEntryPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast toast = Toast.makeText(getActivity(), "manEntrySubmitButton Pressed", Toast.LENGTH_SHORT);
-                //toast.show();
                 //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 //startActivityForResult(intent, 0);
                 ((MainActivity) getActivity()).takePhoto(stockid.getText().toString());
@@ -112,9 +111,32 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     // Set Material variable from spinner selection
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
+        Log.e("randlist", "listener was called");
         material = parent.getItemAtPosition(pos).toString();
+        EditText spec = getActivity().findViewById(R.id.man_entry_specs);
+        if (spec!= null){
+           switch (material){
+               case "Carbonflies":
+                  spec.setText(R.string.carbon_specs);
+                  break;
+               case "Harzmenge":
+                   spec.setText(R.string.reshard_specs);
+                   break;
+               case "Harter":
+                   spec.setText(R.string.reshard_specs);
+                   break;
+               case "Schaum":
+                   spec.setText(R.string.foam_specs);
+                   break;
+               case "Hose":
+                   spec.setText(R.string.hose_specs);
+                   break;
+           }
+        }
+        else{
+            Log.e("randlist", "EditText obj is null");
+        }
+
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
