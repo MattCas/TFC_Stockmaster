@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="createtable">
+    CREATE TABLE StockTable (
+    stockid varchar(32),
+    material varchar(32),
+    menge varchar(32),
+    einheit varchar(32),
+    lieferdatum varchar(32),
+    extra_spez1 varchar(32),
+    extra_spez2 varchar(32),
+    extra_spez3 varchar(32),
+    extra_spez4 varchar(32),
+    extra_spez5 varchar(32),
+    extra_spez6 varchar(32),
+    fotoid varchar(32),
+    buchunsdatum datetime
+    ); </string>
+</resources>

@@ -24,7 +24,7 @@ import java.util.Calendar;
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     DatePickerDialog picker;
     EditText eText, stockid;
-    String material;
+    String material, specs, deliveryDate, stockidstring, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6;
 
     public ManualEntryFragment() {
         // Required empty public constructor
@@ -34,8 +34,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         ManualEntryFragment fragment = new ManualEntryFragment();
         return fragment;
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,10 +76,19 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         manEntrySubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String specs = manEntrySpecs.getText().toString();
-                String deliveryDate = manEntryDate.getText().toString();
-                // Enter code to submit entry details here
-                ((MainActivity) getActivity()).InsertDB(view, material, specs, deliveryDate);
+                stockidstring = stockid.getText().toString();
+                specs = manEntrySpecs.getText().toString();
+                deliveryDate = manEntryDate.getText().toString();
+                quantity = "qty variable";
+                photoid = "photoID here";
+                extra1 = "extra info here";
+                extra2 = "extra info here";
+                extra3 = "extra info here";
+                extra4 = "extra info here";
+                extra5 = "extra info here";
+                extra6 = "extra info here";
+                // Enter code to submit entry details here                                              ADD OTHER COLUMNS HERE -> MODIFY METHOD IN MAIN CLASS TO ACCEPT MORE ARGUMENTS
+                ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, quantity, specs, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, photoid);
                 //Log.e("RES", material+specs+deliveryDate);
 
                 // Rename image to match charge ID
@@ -102,7 +109,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 // Get image as variable
                 // Rename image to match charge ID
                 // Submit image to TFC Server rack
-
             }
         });
         // Inflate the layout for this fragment
@@ -120,8 +126,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                   spec.setText(R.string.carbon_specs);
                   break;
                case "Harzmenge":
-                   spec.setText(R.string.reshard_specs);
-                   break;
                case "Harter":
                    spec.setText(R.string.reshard_specs);
                    break;
@@ -143,4 +147,3 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         // Another interface callback
     }
 }
-

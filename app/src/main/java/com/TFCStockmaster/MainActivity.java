@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
   }
   // Insert into DB
   // TODO Adjust inputs and recreate database to match
-  public void InsertDB(View view, String material, String specs, String date){
+  public void InsertDB(View view, String stockid, String material, String quantity, String specs, String deliveryDate, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String photoid){
     try{
       if(ConnectionClass.con == null){
         new ConnectionClass().setConnection();
@@ -102,8 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
       if(ConnectionClass.con != null){
         Statement stmt = ConnectionClass.con.createStatement();
-        String sql = "insert INTO StockSample(Sample, StockID, Category) VALUES('" + date + "','" +  specs + "','" + material + "');";
+        // SQL statement
+        String sql = "insert INTO StockTable VALUES('" + stockid + "','" +  material + "','" + quantity +
+                "','" +  specs +  "','" +  deliveryDate + "','" + extra1 + "','" +  extra2 + "','" +  extra3 +
+                "','"+ extra4 + "','" +  extra5 + "','" +  extra6 + "','" +  photoid + "', getDate());";
         int res = stmt.executeUpdate(sql);
+        //Log.e("DBCOM", sql);
         // Debug elseif
         if (res == 0){
           Log.e("INSERT", "Inserted Failed");
