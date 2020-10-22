@@ -8,7 +8,7 @@
     <string name="modify_entry">Eintrag Bearbeiten</string>
     <string name="qr_scan">QRCode Scannen</string>
     <string name="stock_id_lookup">Charge Nummer Suchen</string>
-    <string name="man_form_label">Please fill in all fields</string>
+    <string name="man_form_label">New manual entry</string>
     <string name="set_date">Set Date</string>
     <string name="submit">Submit</string>
     <string name="edit_entry_title">Edit Fields to Amend</string>
@@ -16,11 +16,11 @@
 
     <string name="carbon_specs">G/M2</string>
     <string name="reshard_specs">KG</string>
-    <string name="foam_specs">Stuck</string>
+    <string name="foam_specs">cm</string>
     <string name="hose_specs">M</string>
     <string name="sapl">KG</string>
 
-    <string-array name="planets_array">
+    <string-array name="categories_array">
         <item>Carbonflies</item>
         <item>Harzmenge</item>
         <item>Harter</item>

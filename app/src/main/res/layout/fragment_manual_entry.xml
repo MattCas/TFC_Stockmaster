@@ -1,18 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id = "@+id/man_entry_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ManualEntryFragment">
 
     <TextView
         android:id="@+id/man_entry_header"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/man_form_label"
         android:textSize="30dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        />
 
+    <TextView
+        android:id="@+id/material_label_man_entry"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="122dp"
+        android:layout_marginLeft="150dp"
+        android:text="Material"
+        />
+
+    <TextView
+        android:id="@+id/specs_label_man_entry"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="202dp"
+        android:layout_marginLeft="150dp"
+        android:text="Specifications"
+        />
+
+    <TextView
+        android:id="@+id/quantity_label_man_entry"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="282dp"
+        android:layout_marginLeft="150dp"
+        android:text="Quantity"
+        />
+
+    <TextView
+        android:id="@+id/delivery_date_label_man_entry"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="366dp"
+        android:layout_marginLeft="150dp"
+        android:text="Delivery Date"
+        />
+
+    <TextView
+        android:id="@+id/man_entry_stock_id"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="466dp"
+        android:layout_marginLeft="150dp"
+        android:text="Stock ID" />
+    
     <Spinner
         android:id="@+id/man_entry_material"
         android:layout_width="300dp"
@@ -25,11 +71,21 @@
         android:autofillHints="" />
 
     <EditText
-        android:id="@+id/man_entry_specs"
+        android:id="@+id/man_entry_spec_declared"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="202dp"
+        android:ems="10"
+        android:hint="Enter Specifications" />
+
+    <EditText
+        android:id="@+id/man_entry_specs"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="550dp"
         android:layout_marginTop="202dp"
         android:ems="10"
         android:hint="G/M2" />
@@ -40,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="284dp"
+        android:layout_marginTop="366dp"
         android:ems="10"
         android:hint="Enter Delivery Date" />
 
@@ -50,28 +106,101 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="366dp"
+        android:layout_marginTop="466dp"
         android:ems="10"
         android:hint="Enter stock ID" />
 
-    <Button
-        android:id="@+id/man_entry_submit_button"
-        android:layout_width="180dp"
+
+    <EditText
+        android:id="@+id/man_entry_quantity"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="600dp"
-        android:text="@string/submit"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-        android:background="@drawable/tfc_custom_button"/>
+        android:layout_marginTop="284dp"
+        android:ems="10"
+        android:hint="Enter quantity" />
+
+
+    <EditText
+        android:id="@+id/man_entry_extra1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="554dp"
+        android:ems="10"
+        android:hint="Extra1" />
+
+    <EditText
+        android:id="@+id/man_entry_extra2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="450dp"
+        android:layout_marginTop="554dp"
+        android:ems="10"
+        android:hint="Extra2" />
+
+    <EditText
+        android:id="@+id/man_entry_extra3"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="642dp"
+        android:ems="10"
+        android:hint="Extra3" />
+
+    <EditText
+        android:id="@+id/man_entry_extra4"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="450dp"
+        android:layout_marginTop="642dp"
+        android:ems="10"
+        android:hint="Extra4" />
+
+    <EditText
+        android:id="@+id/man_entry_extra5"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="730dp"
+        android:ems="10"
+        android:hint="Extra5" />
+
+    <EditText
+        android:id="@+id/man_entry_extra6"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="450dp"
+        android:layout_marginTop="730dp"
+        android:ems="10"
+        android:hint="Extra6" />
 
     <Button
         android:id="@+id/man_entry_photo_button"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="800dp"
         android:text="@string/take_photo"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:background="@drawable/tfc_custom_button"/>
+
+
+    <Button
+        android:id="@+id/man_entry_submit_button"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="900dp"
+        android:text="@string/submit"
         android:textColor="#FFFFFF"
         android:textAllCaps="false"
         android:background="@drawable/tfc_custom_button"/>

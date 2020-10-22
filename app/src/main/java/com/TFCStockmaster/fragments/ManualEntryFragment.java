@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
@@ -23,8 +24,8 @@ import java.util.Calendar;
 
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     DatePickerDialog picker;
-    EditText eText, stockid;
-    String material, specs, deliveryDate, stockidstring, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6;
+    EditText eText, etStockid, etSpecDeclared, etQuantity, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
+    String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6;
 
     public ManualEntryFragment() {
         // Required empty public constructor
@@ -66,9 +67,17 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         final Spinner manEntryMaterial    = view.findViewById(R.id.man_entry_material);
         final EditText manEntrySpecs      = view.findViewById(R.id.man_entry_specs);
         final EditText manEntryDate       = view.findViewById(R.id.man_entry_date_text);
-        stockid                           = view.findViewById(R.id.man_entry_stockid);
+        etSpecDeclared                    = view.findViewById(R.id.man_entry_spec_declared);
+        etQuantity                        = view.findViewById(R.id.man_entry_quantity);
+        etStockid                         = view.findViewById(R.id.man_entry_stockid);
+        etExtra1                          = view.findViewById(R.id.man_entry_extra1);
+        etExtra2                          = view.findViewById(R.id.man_entry_extra2);
+        etExtra3                          = view.findViewById(R.id.man_entry_extra3);
+        etExtra4                          = view.findViewById(R.id.man_entry_extra4);
+        etExtra5                          = view.findViewById(R.id.man_entry_extra5);
+        etExtra6                          = view.findViewById(R.id.man_entry_extra6);
         // Setup material spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.planets_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.categories_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         manEntryMaterial.setAdapter(adapter);
         manEntryMaterial.setOnItemSelectedListener(this);
@@ -76,19 +85,20 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         manEntrySubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stockidstring = stockid.getText().toString();
-                specs = manEntrySpecs.getText().toString();
-                deliveryDate = manEntryDate.getText().toString();
-                quantity = "qty variable";
-                photoid = "photoID here";
-                extra1 = "extra info here";
-                extra2 = "extra info here";
-                extra3 = "extra info here";
-                extra4 = "extra info here";
-                extra5 = "extra info here";
-                extra6 = "extra info here";
-                // Enter code to submit entry details here                                              ADD OTHER COLUMNS HERE -> MODIFY METHOD IN MAIN CLASS TO ACCEPT MORE ARGUMENTS
-                ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, quantity, specs, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, photoid);
+                stockidstring           = etStockid.getText().toString();
+                specs                   = manEntrySpecs.getText().toString();
+                deliveryDate            = manEntryDate.getText().toString();
+                spec_declared           = etSpecDeclared.getText().toString();
+                quantity                = etQuantity.getText().toString();
+                photoid                 = "photoID4Retrieval";
+                extra1                  = etExtra1.getText().toString();
+                extra2                  = etExtra2.getText().toString();
+                extra3                  = etExtra3.getText().toString();
+                extra4                  = etExtra4.getText().toString();
+                extra5                  = etExtra5.getText().toString();
+                extra6                  = etExtra6.getText().toString();
+                // Enter code to submit entry details here
+                ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared, specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, photoid);
                 //Log.e("RES", material+specs+deliveryDate);
 
                 // Rename image to match charge ID
@@ -104,7 +114,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
             public void onClick(View view) {
                 //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 //startActivityForResult(intent, 0);
-                ((MainActivity) getActivity()).takePhoto(stockid.getText().toString());
+                ((MainActivity) getActivity()).takePhoto(etStockid.getText().toString());
                 //((MainActivity) getActivity()).sendPhoto();
                 // Get image as variable
                 // Rename image to match charge ID
@@ -121,6 +131,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         material = parent.getItemAtPosition(pos).toString();
         EditText spec = getActivity().findViewById(R.id.man_entry_specs);
         if (spec!= null){
+            RelativeLayout currentLayout = view.findViewById(R.id.man_entry_layout);
            switch (material){
                case "Carbonflies":
                   spec.setText(R.string.carbon_specs);
@@ -131,6 +142,12 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                    break;
                case "Schaum":
                    spec.setText(R.string.foam_specs);
+                   /*
+                   etExtra1 = new EditText(getContext());
+                   etExtra1.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+                   etExtra1.setText("dynamic item");
+                   currentLayout.addView(etExtra1);
+                    */
                    break;
                case "Hose":
                    spec.setText(R.string.hose_specs);
