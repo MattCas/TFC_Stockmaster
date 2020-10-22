@@ -58,6 +58,54 @@
         android:layout_marginTop="466dp"
         android:layout_marginLeft="150dp"
         android:text="Stock ID" />
+
+    <TextView
+        android:id="@+id/extraLabel1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="554dp"
+        android:layout_marginLeft="150dp"
+        android:text="Extra1" />
+
+    <TextView
+        android:id="@+id/extraLabel2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="554dp"
+        android:layout_marginLeft="350dp"
+        android:text="Extra2" />
+
+    <TextView
+        android:id="@+id/extraLabel3"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="642dp"
+        android:layout_marginLeft="150dp"
+        android:text="Extra3" />
+
+    <TextView
+        android:id="@+id/extraLabel4"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="642dp"
+        android:layout_marginLeft="350dp"
+        android:text="Extra4" />
+
+    <TextView
+        android:id="@+id/extraLabel5"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="730dp"
+        android:layout_marginLeft="150dp"
+        android:text="Extra5" />
+
+    <TextView
+        android:id="@+id/extraLabel6"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="730dp"
+        android:layout_marginLeft="350dp"
+        android:text="Extra6" />
     
     <Spinner
         android:id="@+id/man_entry_material"
@@ -204,5 +252,14 @@
         android:textColor="#FFFFFF"
         android:textAllCaps="false"
         android:background="@drawable/tfc_custom_button"/>
+
+    <ImageView
+        android:id="@+id/qr_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="500dp"
+        android:layout_marginBottom="287dp"
+        android:visibility="gone"/>
 
 </RelativeLayout>
