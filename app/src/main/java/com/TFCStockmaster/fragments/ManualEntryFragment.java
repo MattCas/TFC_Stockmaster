@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.TFCStockmaster.MainActivity;
+import com.TFCStockmaster.PopUpClass;
 import com.TFCStockmaster.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -35,6 +36,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6;
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
     ImageView qrImgView;
+    PopUpClass popUpClass = new PopUpClass();
 
     public ManualEntryFragment() {
         // Required empty public constructor
@@ -87,8 +89,8 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         etExtra4                          = view.findViewById(R.id.man_entry_extra4);
         etExtra5                          = view.findViewById(R.id.man_entry_extra5);
         etExtra6                          = view.findViewById(R.id.man_entry_extra6);
+        qrImgView                         = view.findViewById(R.id.popup_qr_view);
 
-        qrImgView                         = view.findViewById(R.id.qr_view);
 
         // Setup material spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.categories_array, android.R.layout.simple_spinner_item);
@@ -108,7 +110,8 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
 
                 // Rename image to match charge ID
                 // Submit image to TFC Server rack
-                makeQRCode();
+                popUpClass.showPopupWindow(view, makeQRCode());
+                //qrImgView.setImageBitmap(makeQRCode());
             }
         });
 
@@ -218,22 +221,28 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         tvExtra6 = view.findViewById(R.id.extraLabel6);
     }
 
-    private void makeQRCode() {
-        String qrStock = "StockID : " + stockidstring;
-        String qrMaterial = "Material: " + material;
+    private Bitmap makeQRCode() {
+        String qrStock              = "StockID : " + stockidstring;
+        String qrMaterial           = "Material: " + material;
+        String qrSpecQuantifier     = "Menge: " + spec_declared;
+        String qrSpec               = "Einheit: " + specs;
+        String qrQuantity           = "Quantitaet: " + quantity;
+        String qrDeliveryDate       = "Lieferdatum: " + deliveryDate;
+
+
+        Bitmap qr = null;
 
         StringBuilder textToSend = new StringBuilder();
-        textToSend.append(qrStock+" | "+qrMaterial );
+        textToSend.append(qrStock+" \n "+qrMaterial +" \n "+qrSpecQuantifier +" \n "+qrSpec +" \n "+qrQuantity +" \n "+ qrDeliveryDate );
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 300, 300);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-            qrImgView.setImageBitmap(bitmap);
-            qrImgView.setVisibility(View.VISIBLE);
+            qr = barcodeEncoder.createBitmap(bitMatrix);
 
         } catch (WriterException e) {
             e.printStackTrace();
         }
+        return qr;
     }
 }
