@@ -32,7 +32,7 @@ import java.util.Calendar;
 
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     DatePickerDialog picker;
-    EditText eText, etStockid, etSpecDeclared, etQuantity, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
+    EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
     String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6;
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
     ImageView qrImgView;
@@ -54,10 +54,10 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         // Initialise labels
         initialiseLabels(view);
         // Calendar related variables
-        eText=(EditText) view.findViewById(R.id.man_entry_date_text);
-        eText.setInputType(InputType.TYPE_NULL);
+        etDeliveryDate =(EditText) view.findViewById(R.id.man_entry_date_text);
+        etDeliveryDate.setInputType(InputType.TYPE_NULL);
         // Calendar Listener
-        eText.setOnClickListener(new View.OnClickListener() {
+        etDeliveryDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar cldr = Calendar.getInstance();
@@ -68,7 +68,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 picker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                etDeliveryDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         }, year, month, day);
                 picker.show();
@@ -111,7 +111,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 // Rename image to match charge ID
                 // Submit image to TFC Server rack
                 popUpClass.showPopupWindow(view, makeQRCode());
-                //qrImgView.setImageBitmap(makeQRCode());
+                postSubmissionCleanup();
             }
         });
 
@@ -228,8 +228,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         String qrSpec               = "Einheit: " + specs;
         String qrQuantity           = "Quantitaet: " + quantity;
         String qrDeliveryDate       = "Lieferdatum: " + deliveryDate;
-
-
         Bitmap qr = null;
 
         StringBuilder textToSend = new StringBuilder();
@@ -244,5 +242,19 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
             e.printStackTrace();
         }
         return qr;
+    }
+
+    public void postSubmissionCleanup(){
+        etSpecDeclared.getText().clear();
+        etQuantity.getText().clear();
+        etDeliveryDate.getText().clear();
+        etStockid.getText().clear();
+        etExtra1.getText().clear();
+        etExtra2.getText().clear();
+        etExtra3.getText().clear();
+        etExtra3.getText().clear();
+        etExtra4.getText().clear();
+        etExtra5.getText().clear();
+        etExtra6.getText().clear();
     }
 }
