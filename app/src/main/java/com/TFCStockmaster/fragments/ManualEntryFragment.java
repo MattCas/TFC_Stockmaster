@@ -112,6 +112,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 // Submit image to TFC Server rack
                 popUpClass.showPopupWindow(view, makeQRCode());
                 postSubmissionCleanup();
+
             }
         });
 

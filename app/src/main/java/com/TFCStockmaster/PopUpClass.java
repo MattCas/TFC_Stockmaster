@@ -11,9 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import androidx.print.PrintHelper;
+
 public class PopUpClass {
 
-    //PopupWindow display method
+    //PopupWindow for QR code
 
     public void showPopupWindow(final View view, final Bitmap qr) {
 
@@ -47,7 +49,8 @@ public class PopUpClass {
             public void onClick(View v) {
 
                 //As an example, display the message
-                Toast.makeText(view.getContext(), "Wow, popup action button", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Initialising print...", Toast.LENGTH_SHORT).show();
+                doPhotoPrint(qr, v);
 
             }
         });
@@ -65,6 +68,13 @@ public class PopUpClass {
                 return true;
             }
         });
+    }
+
+    // Printing method to call when user taps Print button
+    private void doPhotoPrint(Bitmap qr, View v) {
+        PrintHelper photoPrinter = new PrintHelper(v.getContext());
+        photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
+        photoPrinter.printBitmap("test print", qr);
     }
 
 }
