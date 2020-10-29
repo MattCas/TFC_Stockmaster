@@ -3,6 +3,7 @@ package com.TFCStockmaster;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -10,9 +11,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -40,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,36 +52,58 @@ public class MainActivity extends AppCompatActivity {
   private ImageView mImageView;
   private File dir;
   private File photoFile = null;
+  private Button deLangButton, enLangButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.activity_main);
     bottomNavigation = findViewById(R.id.bottom_navigation);
     bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
     openFragment(NewEntryFragment.newInstance("", ""));
     //CheckConnection(findViewById(android.R.id.content).getRootView());
+
+    deLangButton = this.findViewById(R.id.de_lang_button);
+    deLangButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        // Must be passed in method because they're final vars
+        setLocale("de");
+        recreate();
+      }
+    });
+
+    enLangButton = this.findViewById(R.id.en_lang_button);
+    enLangButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        // Must be passed in method because they're final vars
+        setLocale("en");
+        recreate();
+      }
+    });
   }
 
   // Search DB by stockID
   // TODO Return results as usable variables, rather than void method
-  public void SearchDB(View view, String stockID, EditText material, EditText specs, EditText date){
-    try{
-      if(ConnectionClass.con == null){
+  public void SearchDB(View view, String stockID, EditText material, EditText specs, EditText date) {
+    try {
+      if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
       }
 
-      if(ConnectionClass.con != null){
+      if (ConnectionClass.con != null) {
         Statement stmt = ConnectionClass.con.createStatement();
         String sql = "select * from StockSample WHERE StockID='" + stockID + "';";
         ResultSet rs = stmt.executeQuery(sql);
         Log.e("ASK", "-------------------");
-        while(rs.next()){
-          Log.e("ASK",rs.getString("Sample"));
+        while (rs.next()) {
+          Log.e("ASK", rs.getString("Sample"));
           date.setText(rs.getString("Sample"));
-          Log.e("ASK",rs.getString("StockID"));
+          Log.e("ASK", rs.getString("StockID"));
           specs.setText(rs.getString("StockID"));
-          Log.e("ASK",rs.getString("Category"));
+          Log.e("ASK", rs.getString("Category"));
           material.setText(rs.getString("Category"));
         }
         Log.e("ASK", "------------------");
@@ -86,40 +112,39 @@ public class MainActivity extends AppCompatActivity {
       } else {
         Toast.makeText(getApplicationContext(), "Connection to server failed!", Toast.LENGTH_LONG).show();
       }
-    }
-    catch(Exception e){
+    } catch (Exception e) {
       Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
       Log.e("ASK", e.getMessage());
     }
   }
+
   // Insert into DB
   // TODO Adjust inputs and recreate database to match
-  public void InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String photoid){
-    try{
-      if(ConnectionClass.con == null){
+  public void InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String photoid) {
+    try {
+      if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
       }
 
-      if(ConnectionClass.con != null){
+      if (ConnectionClass.con != null) {
         Statement stmt = ConnectionClass.con.createStatement();
         // SQL statement
-        String sql = "insert INTO StockTable VALUES('" + stockid + "','" +  material + "','" + spec_declared +
-                "','" +  specs +  "','" +  quantity + "','" + deliveryDate + "','" + extra1 + "','" +  extra2 + "','" +  extra3 +
-                "','"+ extra4 + "','" +  extra5 + "','" +  extra6 + "','" +  photoid + "', getDate());";
+        String sql = "insert INTO StockTable VALUES('" + stockid + "','" + material + "','" + spec_declared +
+                "','" + specs + "','" + quantity + "','" + deliveryDate + "','" + extra1 + "','" + extra2 + "','" + extra3 +
+                "','" + extra4 + "','" + extra5 + "','" + extra6 + "','" + photoid + "', getDate());";
         int res = stmt.executeUpdate(sql);
         //Log.e("DBCOM", sql);
         // Debug elseif
-        if (res == 0){
+        if (res == 0) {
           Log.e("INSERT", "Inserted Failed");
-        } else{
+        } else {
           Log.e("INSERT", "Inserted Normally");
         }
         Toast.makeText(getApplicationContext(), "Insert Query executed successfully", Toast.LENGTH_LONG).show();
       } else {
         Toast.makeText(getApplicationContext(), "Connection to server failed!", Toast.LENGTH_LONG).show();
       }
-    }
-    catch(Exception e){
+    } catch (Exception e) {
       Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
       Log.e("INSERT", e.getMessage());
     }
@@ -133,39 +158,41 @@ public class MainActivity extends AppCompatActivity {
   }
 
   BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
-      new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-          switch (item.getItemId()) {
-            case R.id.navigation_eintrag:
-              openFragment(NewEntryFragment.newInstance("", ""));
-              return true;
-            case R.id.navigation_lbsuchen:
-              openFragment(StockSearchFragment.newInstance("", ""));
-              return true;
-            case R.id.navigation_kateghinz:
-              openFragment(CategoryEditFragment.newInstance("", ""));
-              return true;
-          }
-          return false;
-        }
-      };
+          new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+              switch (item.getItemId()) {
+                case R.id.navigation_eintrag:
+                  openFragment(NewEntryFragment.newInstance("", ""));
+                  return true;
+                case R.id.navigation_lbsuchen:
+                  openFragment(StockSearchFragment.newInstance("", ""));
+                  return true;
+                case R.id.navigation_kateghinz:
+                  openFragment(CategoryEditFragment.newInstance("", ""));
+                  return true;
+              }
+              return false;
+            }
+          };
+
   // Basic check for database connection established
   // TODO Delete before app delivery
-  public void CheckConnection(View view){
-    try{
-      if(ConnectionClass.con == null){
+  public void CheckConnection(View view) {
+    try {
+      if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
       }
 
-      if(ConnectionClass.con != null){
+      if (ConnectionClass.con != null) {
         Statement stmt = ConnectionClass.con.createStatement();
         String sql = "select * from StockSample";
         ResultSet rs = stmt.executeQuery(sql);
         Log.e("ASK", "-------------------");
-        while(rs.next()){
-          Log.e("ASK",rs.getString("Sample"));
-          Log.e("ASK",rs.getString("StockID"));
-          Log.e("ASK",rs.getString("Category"));
+        while (rs.next()) {
+          Log.e("ASK", rs.getString("Sample"));
+          Log.e("ASK", rs.getString("StockID"));
+          Log.e("ASK", rs.getString("Category"));
         }
         Log.e("ASK", "------------------");
 
@@ -173,8 +200,7 @@ public class MainActivity extends AppCompatActivity {
       } else {
         Toast.makeText(getApplicationContext(), "Connection to server failed!", Toast.LENGTH_LONG).show();
       }
-    }
-    catch(Exception e){
+    } catch (Exception e) {
       Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
       Log.e("ASK", e.getMessage());
     }
@@ -204,10 +230,10 @@ public class MainActivity extends AppCompatActivity {
 
   // TODO Fix method to invoke dispatchTakePictureIntent() method
   public void takePhoto(String stockid) {
-		//Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		//intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-		//startActivityForResult(intent, 0);
-        dispatchTakePictureIntent(stockid);
+    //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+    //intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+    //startActivityForResult(intent, 0);
+    dispatchTakePictureIntent(stockid);
   }
 
 
@@ -414,5 +440,14 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  public void setLocale(String lang) {
+    Resources res = getResources();
+    // Change locale settings in the app.
+    DisplayMetrics dm = res.getDisplayMetrics();
+    android.content.res.Configuration conf = res.getConfiguration();
+    conf.locale = new Locale(lang);
+    res.updateConfiguration(conf, dm);
 
+    setContentView(R.layout.activity_main);
+  }
 }

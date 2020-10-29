@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TFC Stockmaster</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delivery_note_scan">Lieferschein Scannen</string>
+    <string name="manual_entry">Manuell Eintrag</string>
+    <string name="modify_entry">Eintrag Bearbeiten</string>
+    <string name="qr_scan">QRCode Scannen</string>
+    <string name="stock_id_lookup">Charge Nummer Suchen</string>
+    <string name="man_form_label">Neu manuell eintrag</string>
+    <string name="set_date">Datum festlegen</string>
+    <string name="submit">Einreichen</string>
+    <string name="edit_entry_title">Zu ändernde Felder bearbeiten</string>
+    <string name="take_photo">Mach ein Foto</string>
+
+    <string name="carbon_specs">G/M2</string>
+    <string name="reshard_specs">KG</string>
+    <string name="foam_specs">cm</string>
+    <string name="hose_specs">M</string>
+    <string name="sapl">KG</string>
+
+    <string name="given_tolerance">Gegebene Toleranz</string>
+    <string name="not_required">Nicht erforderlich</string>
+    <string name="given_data">Gegebene Daten</string>
+    <string name="tested_data">Geprüfte Daten</string>
+    <string name="tested_tolerance">Geprüfte Toleranz</string>
+    <string name="type">Typ</string>
+    <string name="leave_blank">Freilassen</string>
+
+    <string-array name="categories_array">
+        <item>Carbonflies</item>
+        <item>Harzmenge</item>
+        <item>Harter</item>
+        <item>Schaum</item>
+        <item>Hose</item>
+    </string-array>
+</resources>

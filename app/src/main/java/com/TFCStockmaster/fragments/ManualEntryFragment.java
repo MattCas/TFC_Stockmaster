@@ -105,7 +105,8 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 // Must be passed in method because they're final vars
                 assignSubmitFields(etSpecs, etDeliveryDate);
                 // Enter code to submit entry details here
-                ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared, specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, photoid);
+                ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared,
+                        specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, photoid);
                 //Log.e("RES", material+specs+deliveryDate);
 
                 // Rename image to match charge ID
@@ -144,28 +145,32 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
             //RelativeLayout currentLayout = view.findViewById(R.id.man_entry_layout);
            switch (material){
                case "Carbonflies":
+               case "Carbonfiber":
                    initialiseExtraFields();
                   spec.setText(R.string.carbon_specs);
-                  etExtra1.setHint("Stated tolerance");
-                  etExtra2.setHint("Actual tolerance");
-                  setExtraLabels("Given Tolerance", "Tested Tolerance", "Not Required", "Not Required", "Not Required", "Not Required");
+                  etExtra1.setHint("");
+                  etExtra2.setHint("");
+                  setExtraLabels(getString(R.string.given_tolerance), getString(R.string.tested_tolerance), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required));
                   break;
                   //need to separate?
                case "Harzmenge":
                case "Harter":
+               case "Resin":
+               case "Hardener":
                    initialiseExtraFields();
                    spec.setText(R.string.reshard_specs);
-                   setExtraLabels("Given Data", "Tested Data", "Not Required", "Not Required", "Not Required", "Not Required");
+                   setExtraLabels(getString(R.string.given_data), getString(R.string.tested_data), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required));
                    break;
                case "Schaum":
+               case "Foam":
                    spec.setText(R.string.foam_specs);
-                   setExtraLabels("Not Required", "Not Required", "Not Required", "Not Required", "Not Required", "Not Required");
+                   setExtraLabels(getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required));
                    break;
                case "Hose":
                    initialiseExtraFields();
                    spec.setText(R.string.hose_specs);
-                   setExtraLabels("Type", "Tested Tolerance", "Not Required", "Not Required", "Not Required", "Not Required");
-                   etExtra1.setHint("Type");
+                   setExtraLabels(getString(R.string.type), getString(R.string.tested_tolerance), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required));
+                   etExtra1.setHint("");
                    break;
            }
         }
@@ -180,12 +185,12 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     }
     // TODO change text to string resource
     public void initialiseExtraFields(){
-        etExtra1.setHint("Leave blank");
-        etExtra2.setHint("Leave blank");
-        etExtra3.setHint("Leave blank");
-        etExtra4.setHint("Leave blank");
-        etExtra5.setHint("Leave blank");
-        etExtra6.setHint("Leave blank");
+        etExtra1.setHint(R.string.leave_blank);
+        etExtra2.setHint(R.string.leave_blank);
+        etExtra3.setHint(R.string.leave_blank);
+        etExtra4.setHint(R.string.leave_blank);
+        etExtra5.setHint(R.string.leave_blank);
+        etExtra6.setHint(R.string.leave_blank);
     }
 
     public void assignSubmitFields(EditText etSpecs, EditText etDeliveryDate){

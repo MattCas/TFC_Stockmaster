@@ -3,11 +3,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="delivery_note_scan">Lieferschein Scannen</string>
-    <string name="manual_entry">Manuell Eintrag</string>
-    <string name="modify_entry">Eintrag Bearbeiten</string>
-    <string name="qr_scan">QRCode Scannen</string>
-    <string name="stock_id_lookup">Charge Nummer Suchen</string>
+    <string name="delivery_note_scan">Scan delivery note</string>
+    <string name="manual_entry">Manual Entry</string>
+    <string name="modify_entry">Edit Entry</string>
+    <string name="qr_scan">Scan QRCode</string>
+    <string name="stock_id_lookup">Search by Stock ID</string>
     <string name="man_form_label">New manual entry</string>
     <string name="set_date">Set Date</string>
     <string name="submit">Submit</string>
@@ -20,11 +20,19 @@
     <string name="hose_specs">M</string>
     <string name="sapl">KG</string>
 
+    <string name="given_tolerance">Given Tolerance</string>
+    <string name="not_required">Not Required</string>
+    <string name="given_data">Given Data</string>
+    <string name="tested_data">Tested Data</string>
+    <string name="tested_tolerance">Tested Tolerance</string>
+    <string name="type">Type</string>
+    <string name="leave_blank">Leave blank</string>
+
     <string-array name="categories_array">
-        <item>Carbonflies</item>
-        <item>Harzmenge</item>
-        <item>Harter</item>
-        <item>Schaum</item>
+        <item>Carbonfiber</item>
+        <item>Resin</item>
+        <item>Hardener</item>
+        <item>Foam</item>
         <item>Hose</item>
     </string-array>
 
