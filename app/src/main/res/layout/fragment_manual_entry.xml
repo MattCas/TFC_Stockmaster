@@ -19,17 +19,16 @@
         android:id="@+id/material_label_man_entry"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="122dp"
-        android:layout_marginLeft="150dp"
-        android:text="Material"
-        />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="80dp"
+        android:text="Material" />
 
     <TextView
         android:id="@+id/specs_label_man_entry"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="202dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="370dp"
         android:text="Specifications"
         />
 
@@ -37,8 +36,8 @@
         android:id="@+id/quantity_label_man_entry"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="282dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="30dp"
         android:text="Quantity"
         />
 
@@ -46,126 +45,125 @@
         android:id="@+id/delivery_date_label_man_entry"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="366dp"
-        android:layout_marginLeft="150dp"
-        android:text="Delivery Date"
-        />
+        android:layout_marginLeft="370dp"
+        android:layout_marginTop="150dp"
+        android:text="Delivery Date" />
 
     <TextView
         android:id="@+id/man_entry_stock_id"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="466dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="30dp"
         android:text="Stock ID" />
 
     <TextView
         android:id="@+id/extraLabel1"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="554dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginLeft="30dp"
         android:text="Extra1" />
 
     <TextView
         android:id="@+id/extraLabel2"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="554dp"
-        android:layout_marginLeft="350dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginLeft="280dp"
         android:text="Extra2" />
 
     <TextView
         android:id="@+id/extraLabel3"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="642dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginLeft="520dp"
         android:text="Extra3" />
 
     <TextView
         android:id="@+id/extraLabel4"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="642dp"
-        android:layout_marginLeft="350dp"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="30dp"
         android:text="Extra4" />
 
     <TextView
         android:id="@+id/extraLabel5"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="730dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="280dp"
         android:text="Extra5" />
 
     <TextView
         android:id="@+id/extraLabel6"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="730dp"
-        android:layout_marginLeft="350dp"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="520dp"
         android:text="Extra6" />
-    
+
     <Spinner
         android:id="@+id/man_entry_material"
-        android:layout_width="300dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="122dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="80dp"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="Carbonflies"
-        android:autofillHints="" />
+        android:hint="Carbonflies" />
 
     <EditText
         android:id="@+id/man_entry_spec_declared"
-        android:layout_width="300dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="202dp"
+        android:layout_marginLeft="490dp"
+        android:layout_marginTop="70dp"
         android:ems="10"
         android:hint="Enter Specifications" />
 
     <EditText
         android:id="@+id/man_entry_specs"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="550dp"
-        android:layout_marginTop="202dp"
+        android:layout_marginLeft="690dp"
+        android:layout_marginTop="70dp"
         android:ems="10"
         android:hint="G/M2" />
 
     <EditText
         android:id="@+id/man_entry_date_text"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="366dp"
+        android:layout_marginLeft="490dp"
+        android:layout_marginTop="140dp"
         android:ems="10"
         android:hint="Enter Delivery Date" />
 
     <EditText
         android:id="@+id/man_entry_stockid"
-        android:layout_width="300dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="466dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="210dp"
         android:ems="10"
         android:hint="Enter stock ID" />
 
 
     <EditText
         android:id="@+id/man_entry_quantity"
-        android:layout_width="300dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="284dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="140dp"
         android:ems="10"
         android:hint="Enter quantity" />
 
@@ -175,8 +173,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="554dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="330dp"
         android:ems="10"
         android:hint="Extra1" />
 
@@ -185,8 +183,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="450dp"
-        android:layout_marginTop="554dp"
+        android:layout_marginLeft="390dp"
+        android:layout_marginTop="330dp"
         android:ems="10"
         android:hint="Extra2" />
 
@@ -195,8 +193,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="642dp"
+        android:layout_marginLeft="630dp"
+        android:layout_marginTop="330dp"
         android:ems="10"
         android:hint="Extra3" />
 
@@ -205,8 +203,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="450dp"
-        android:layout_marginTop="642dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="400dp"
         android:ems="10"
         android:hint="Extra4" />
 
@@ -215,8 +213,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="730dp"
+        android:layout_marginLeft="390dp"
+        android:layout_marginTop="400dp"
         android:ems="10"
         android:hint="Extra5" />
 
@@ -225,41 +223,48 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="450dp"
-        android:layout_marginTop="730dp"
+        android:layout_marginLeft="630dp"
+        android:layout_marginTop="400dp"
         android:ems="10"
         android:hint="Extra6" />
+
 
     <Button
         android:id="@+id/man_entry_photo_button"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="800dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="180dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="900dp"
+        android:background="@drawable/tfc_custom_button"
         android:text="@string/take_photo"
-        android:textColor="#FFFFFF"
         android:textAllCaps="false"
-        android:background="@drawable/tfc_custom_button"/>
-
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/man_entry_submit_button"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="900dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginRight="180dp"
+        android:background="@drawable/tfc_custom_button"
         android:text="@string/submit"
-        android:textColor="#FFFFFF"
         android:textAllCaps="false"
-        android:background="@drawable/tfc_custom_button"/>
+        android:textColor="#FFFFFF" />
 
     <ImageView
-        android:id="@+id/qr_view"
+        android:id="@+id/man_img_view"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="600dp"
-        android:layout_marginBottom="287dp"
-        android:visibility="gone"/>
+        android:layout_marginTop="550dp"
+        android:visibility="visible" />
 
 </RelativeLayout>

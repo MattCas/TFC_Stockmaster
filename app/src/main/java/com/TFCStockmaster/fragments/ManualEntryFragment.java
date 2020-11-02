@@ -1,6 +1,10 @@
 package com.TFCStockmaster.fragments;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputType;
@@ -16,7 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.TFCStockmaster.MainActivity;
@@ -35,8 +42,10 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
     String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6;
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
-    ImageView qrImgView;
+    ImageView qrImgView, imageView;
     PopUpClass popUpClass = new PopUpClass();
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     public ManualEntryFragment() {
         // Required empty public constructor
@@ -90,6 +99,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         etExtra5                          = view.findViewById(R.id.man_entry_extra5);
         etExtra6                          = view.findViewById(R.id.man_entry_extra6);
         qrImgView                         = view.findViewById(R.id.popup_qr_view);
+        imageView                         = view.findViewById(R.id.man_img_view);
 
 
         // Setup material spinner
@@ -123,14 +133,16 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         manEntryPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                //startActivityForResult(intent, 0);
-                ((MainActivity) getActivity()).takePhoto(etStockid.getText().toString());
-                //((MainActivity) getActivity()).sendPhoto();
-                // Get image as variable
-                // Rename image to match charge ID
-                // Submit image to TFC Server rack
+
+
+                if (ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                } else {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
             }
+
         });
         // Inflate the layout for this fragment
         return view;
@@ -262,5 +274,28 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         etExtra4.getText().clear();
         etExtra5.getText().clear();
         etExtra6.getText().clear();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "camera permission granted", Toast.LENGTH_LONG).show();
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            } else {
+                Toast.makeText(getContext(), "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(photo);
+        }
     }
 }

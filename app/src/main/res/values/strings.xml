@@ -28,6 +28,11 @@
     <string name="type">Type</string>
     <string name="leave_blank">Leave blank</string>
 
+    <string name="entry">Enter</string>
+    <string name="stock_search">Search Inventory</string>
+    <string name="add_category">Add Category</string>
+    <string name="scan_delivery_note">Scan Delivery Note</string>
+
     <string-array name="categories_array">
         <item>Carbonfiber</item>
         <item>Resin</item>
