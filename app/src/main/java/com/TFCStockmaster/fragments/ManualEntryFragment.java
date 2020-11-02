@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -44,6 +46,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
     ImageView qrImgView, imageView;
     PopUpClass popUpClass = new PopUpClass();
+    Bitmap photo;
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
@@ -116,7 +119,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 assignSubmitFields(etSpecs, etDeliveryDate);
                 // Enter code to submit entry details here
                 ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared,
-                        specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, photoid);
+                        specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, encodeBitmap(photo));
                 //Log.e("RES", material+specs+deliveryDate);
 
                 // Rename image to match charge ID
@@ -294,8 +297,17 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            photo = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(photo);
+
         }
     }
+    public String encodeBitmap(Bitmap photo){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return imageString;
+    }
+
 }

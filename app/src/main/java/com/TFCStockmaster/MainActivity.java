@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +22,6 @@ import com.TFCStockmaster.fragments.NewEntryFragment;
 import com.TFCStockmaster.fragments.StockSearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Locale;
@@ -32,9 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
   BottomNavigationView bottomNavigation;
   private static final String TAG = "upload";
-  private ImageView mImageView;
-  private File dir;
-  private File photoFile = null;
   private Button deLangButton, enLangButton;
 
   @Override
@@ -108,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
   // Insert into DB
   // TODO Adjust inputs and recreate database to match
-  public void InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String photoid) {
+  public void InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto) {
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
@@ -119,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         // SQL statement
         String sql = "insert INTO StockTable VALUES('" + stockid + "','" + material + "','" + spec_declared +
                 "','" + specs + "','" + quantity + "','" + deliveryDate + "','" + extra1 + "','" + extra2 + "','" + extra3 +
-                "','" + extra4 + "','" + extra5 + "','" + extra6 + "','" + photoid + "', getDate());";
+                "','" + extra4 + "','" + extra5 + "','" + extra6 + "','" + deliveryNotePhoto + "', getDate());";
         int res = stmt.executeUpdate(sql);
         //Log.e("DBCOM", sql);
         // Debug elseif
