@@ -3,10 +3,14 @@ package com.TFCStockmaster.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
@@ -42,13 +46,16 @@ import java.util.Calendar;
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     DatePickerDialog picker;
     EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
-    String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6;
+    String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, imageurl;
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
     ImageView qrImgView, imageView;
     PopUpClass popUpClass = new PopUpClass();
-    Bitmap photo;
+    Bitmap photo, thumbnail;
+    Uri imageUri;
+    ContentValues values;
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    private static final int PICTURE_RESULT = 1;
 
     public ManualEntryFragment() {
         // Required empty public constructor
@@ -119,7 +126,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 assignSubmitFields(etSpecs, etDeliveryDate);
                 // Enter code to submit entry details here
                 ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared,
-                        specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, encodeBitmap(photo));
+                        specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, bitMapToString(thumbnail));
                 //Log.e("RES", material+specs+deliveryDate);
 
                 // Rename image to match charge ID
@@ -137,12 +144,17 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void onClick(View view) {
 
-
-                if (ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_CAMERA_PERMISSION_CODE);
                 } else {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    values = new ContentValues();
+                    values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                    values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+                    imageUri = getContext().getContentResolver().insert(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    startActivityForResult(intent, PICTURE_RESULT);
                 }
             }
 
@@ -294,19 +306,66 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         }
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
+        switch (requestCode) {
 
+            case PICTURE_RESULT:
+                if (requestCode == PICTURE_RESULT)
+                    if (resultCode == Activity.RESULT_OK) {
+                        try {
+                            thumbnail = MediaStore.Images.Media.getBitmap(
+                                    getActivity().getContentResolver(), imageUri);
+                            imageView.setImageBitmap(thumbnail);
+                            imageurl = getRealPathFromURI(imageUri);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
         }
     }
+
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        //Cursor cursor = new CursorLoader();
+        Cursor cursor = getContext().getContentResolver().query(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+
     public String encodeBitmap(Bitmap photo){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        photo.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
         byte[] imageBytes = byteArrayOutputStream.toByteArray();
         String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        Log.e("base64", imageString);
+        return imageString;
+    }
+
+    public String bitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos = new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
+        byte [] b = baos.toByteArray();
+        String imageString = null;
+        try{
+            System.gc();
+            imageString = Base64.encodeToString(b, Base64.DEFAULT);
+            Log.e("base64HQ", imageString);
+        }catch(Exception e){
+            e.printStackTrace();
+        }catch(OutOfMemoryError e){
+            baos = new  ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,50, baos);
+            b = baos.toByteArray();
+            imageString = Base64.encodeToString(b, Base64.DEFAULT);
+            Log.e("base64LQ", imageString);
+            Log.e("EWN", "Out of memory error caught");
+        }
         return imageString;
     }
 
