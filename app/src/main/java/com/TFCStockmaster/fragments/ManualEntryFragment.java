@@ -8,11 +8,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +40,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -126,14 +125,12 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 assignSubmitFields(etSpecs, etDeliveryDate);
                 // Enter code to submit entry details here
                 ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared,
-                        specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, bitMapToString(thumbnail));
-                //Log.e("RES", material+specs+deliveryDate);
+                        specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, imageurl);
 
-                // Rename image to match charge ID
-                // Submit image to TFC Server rack
                 popUpClass.showPopupWindow(view, makeQRCode());
                 postSubmissionCleanup();
 
+                loadImageFromLocalStore(imageurl);
             }
         });
 
@@ -306,7 +303,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         }
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -319,6 +315,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                                     getActivity().getContentResolver(), imageUri);
                             imageView.setImageBitmap(thumbnail);
                             imageurl = getRealPathFromURI(imageUri);
+                            Log.e("URLimg", imageurl);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -326,7 +323,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                     }
         }
     }
-
 
     public String getRealPathFromURI(Uri contentUri) {
         String[] proj = { MediaStore.Images.Media.DATA };
@@ -337,36 +333,9 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         return cursor.getString(column_index);
     }
 
-
-    public String encodeBitmap(Bitmap photo){
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        photo.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
-        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        Log.e("base64", imageString);
-        return imageString;
-    }
-
-    public String bitMapToString(Bitmap bitmap){
-        ByteArrayOutputStream baos = new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
-        byte [] b = baos.toByteArray();
-        String imageString = null;
-        try{
-            System.gc();
-            imageString = Base64.encodeToString(b, Base64.DEFAULT);
-            Log.e("base64HQ", imageString);
-        }catch(Exception e){
-            e.printStackTrace();
-        }catch(OutOfMemoryError e){
-            baos = new  ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,50, baos);
-            b = baos.toByteArray();
-            imageString = Base64.encodeToString(b, Base64.DEFAULT);
-            Log.e("base64LQ", imageString);
-            Log.e("EWN", "Out of memory error caught");
-        }
-        return imageString;
+    private void loadImageFromLocalStore(String url){
+            Bitmap bitmap = BitmapFactory.decodeFile(url);
+            imageView.setImageBitmap(bitmap);
     }
 
 }
