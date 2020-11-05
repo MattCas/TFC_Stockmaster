@@ -2,6 +2,8 @@ package com.TFCStockmaster;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -70,26 +73,36 @@ public class MainActivity extends AppCompatActivity {
 
   // Search DB by stockID
   // TODO Return results as usable variables, rather than void method
-  public void SearchDB(View view, String stockID, EditText material, EditText specs, EditText date) {
+  public void SearchDB(View view, String stockID, EditText material, EditText specs, EditText measure, EditText quantity,  EditText date,
+                       EditText extra1, EditText extra2,EditText extra3, EditText extra4,EditText extra5, EditText extra6, ImageView deliverynoteview) {
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
       }
 
       if (ConnectionClass.con != null) {
+        String photourl = "nada";
         Statement stmt = ConnectionClass.con.createStatement();
-        String sql = "select * from StockSample WHERE StockID='" + stockID + "';";
+        String sql = "select * from StockTable WHERE stockid='" + stockID + "';";
         ResultSet rs = stmt.executeQuery(sql);
         Log.e("ASK", "-------------------");
+        // Set all strings to edittext obj passed in
         while (rs.next()) {
-          Log.e("ASK", rs.getString("Sample"));
-          date.setText(rs.getString("Sample"));
-          Log.e("ASK", rs.getString("StockID"));
-          specs.setText(rs.getString("StockID"));
-          Log.e("ASK", rs.getString("Category"));
-          material.setText(rs.getString("Category"));
+          material.setText(rs.getString("material"));
+          specs.setText(rs.getString("menge"));
+          measure.setText(rs.getString("einheit"));
+          quantity.setText(rs.getString("quantitaet"));
+          date.setText(rs.getString("lieferdatum"));
+          extra1.setText(rs.getString("extra_spez1"));
+          extra2.setText(rs.getString("extra_spez2"));
+          extra3.setText(rs.getString("extra_spez3"));
+          extra4.setText(rs.getString("extra_spez4"));
+          extra5.setText(rs.getString("extra_spez5"));
+          extra6.setText(rs.getString("extra_spez6"));
+          photourl = (rs.getString("fotoid"));
         }
         Log.e("ASK", "------------------");
+        loadImageFromLocalStore(photourl, deliverynoteview);
 
         Toast.makeText(getApplicationContext(), "Search Query executed successfully", Toast.LENGTH_LONG).show();
       } else {
@@ -229,4 +242,10 @@ public class MainActivity extends AppCompatActivity {
 
     setContentView(R.layout.activity_main);
   }
+
+  private void loadImageFromLocalStore(String url, ImageView imageView){
+    Bitmap bitmap = BitmapFactory.decodeFile(url);
+    imageView.setImageBitmap(bitmap);
+  }
+
 }

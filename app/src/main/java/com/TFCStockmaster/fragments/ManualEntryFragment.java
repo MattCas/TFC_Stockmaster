@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -130,7 +133,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 popUpClass.showPopupWindow(view, makeQRCode());
                 postSubmissionCleanup();
 
-                loadImageFromLocalStore(imageurl);
+                //loadImageFromLocalStore(imageurl);
             }
         });
 
@@ -264,15 +267,56 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         textToSend.append(qrStock+" \n "+qrMaterial +" \n "+qrSpecQuantifier +" \n "+qrSpec +" \n "+qrQuantity +" \n "+ qrDeliveryDate );
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 300, 300);
+            BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 800, 300);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             qr = barcodeEncoder.createBitmap(bitMatrix);
+            qr = addQrLabel(textToSend.toString(), qr);
+
 
         } catch (WriterException e) {
             e.printStackTrace();
         }
         return qr;
     }
+
+    private Bitmap addQrLabel(String label, Bitmap qr){
+        Bitmap bm1 = null;
+        Bitmap newBitmap = null;
+        bm1 = qr;
+        Bitmap.Config config = bm1.getConfig();
+        if(config == null){
+            config = Bitmap.Config.ARGB_8888;
+        }
+
+        newBitmap = Bitmap.createBitmap(bm1.getWidth(), bm1.getHeight(), config);
+        Canvas newCanvas = new Canvas(newBitmap);
+
+        newCanvas.drawBitmap(bm1, 0, 0, null);
+
+        String captionString = label;
+        if(captionString != null){
+
+            Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paintText.setColor(Color.BLACK);
+            paintText.setTextSize(15);
+            paintText.setStyle(Paint.Style.FILL);
+            paintText.setTextAlign(Paint.Align.LEFT);
+            //paintText.setShadowLayer(10f, 10f, 10f, Color.BLACK);
+
+            Rect rectText = new Rect();
+            paintText.getTextBounds(captionString, 0, captionString.length(), rectText);
+
+            newCanvas.drawText(captionString,
+                    0, rectText.height(), paintText);
+        }else{
+            Toast.makeText(getContext(),
+                    "caption empty!",
+                    Toast.LENGTH_LONG).show();
+        }
+        return newBitmap;
+    }
+
+
 
     public void postSubmissionCleanup(){
         etSpecDeclared.getText().clear();
@@ -286,6 +330,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         etExtra4.getText().clear();
         etExtra5.getText().clear();
         etExtra6.getText().clear();
+        imageView.setImageResource(android.R.color.transparent);
     }
 
 
@@ -333,9 +378,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         return cursor.getString(column_index);
     }
 
-    private void loadImageFromLocalStore(String url){
-            Bitmap bitmap = BitmapFactory.decodeFile(url);
-            imageView.setImageBitmap(bitmap);
-    }
+
 
 }

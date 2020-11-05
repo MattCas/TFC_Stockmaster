@@ -1,21 +1,17 @@
 package com.TFCStockmaster.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 import com.TFCStockmaster.MainActivity;
 import com.TFCStockmaster.R;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class EntryEditFragment extends Fragment {
 
@@ -56,8 +52,17 @@ public class EntryEditFragment extends Fragment {
         final Button editEntryRetrieveButton = view.findViewById(R.id.edit_entry_retrieve_button);
         final EditText userEnteredStockid = view.findViewById(R.id.edit_entry_stock_number);
         final EditText material = view.findViewById(R.id.edit_entry_material);
-        final EditText specs = view.findViewById(R.id.edit_entry_specs);
+        final EditText specs = view.findViewById(R.id.edit_entry_spec_declared);
+        final EditText measure = view.findViewById(R.id.edit_entry_specs);
+        final EditText quantity = view.findViewById(R.id.edit_entry_quantity);
         final EditText date = view.findViewById(R.id.edit_entry_date);
+        final EditText extra1 = view.findViewById(R.id.edit_entry_extra1);
+        final EditText extra2 = view.findViewById(R.id.edit_entry_extra2);
+        final EditText extra3 = view.findViewById(R.id.edit_entry_extra3);
+        final EditText extra4 = view.findViewById(R.id.edit_entry_extra4);
+        final EditText extra5 = view.findViewById(R.id.edit_entry_extra5);
+        final EditText extra6 = view.findViewById(R.id.edit_entry_extra6);
+        final ImageView imgview = view.findViewById(R.id.edit_img_view);
         editEntryRetrieveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +72,7 @@ public class EntryEditFragment extends Fragment {
                 //EditText userStockNum = view.findViewById(R.id.edit_entry_stock_number);
                 String stockID = userEnteredStockid.getText().toString();
                 // Enter code to retrieve entry details here
-                ((MainActivity) getActivity()).SearchDB(view, stockID,material,specs,date);
+                ((MainActivity) getActivity()).SearchDB(view, stockID,material,specs, measure, quantity, date, extra1, extra2, extra3, extra4, extra5, extra6, imgview);
                 //Log.e("RES", stockID);
             }
         });

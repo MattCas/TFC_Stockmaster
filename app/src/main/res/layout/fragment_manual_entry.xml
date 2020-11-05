@@ -4,6 +4,7 @@
     android:id = "@+id/man_entry_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:screenOrientation="portrait"
     tools:context=".fragments.ManualEntryFragment">
 
     <TextView
@@ -29,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_marginLeft="370dp"
-        android:text="Specifications"
+        android:text="@string/specifications"
         />
 
     <TextView
@@ -38,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:layout_marginLeft="30dp"
-        android:text="Quantity"
+        android:text="@string/quantity"
         />
 
     <TextView
@@ -47,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="370dp"
         android:layout_marginTop="150dp"
-        android:text="Delivery Date" />
+        android:text="@string/delivery_date" />
 
     <TextView
         android:id="@+id/man_entry_stock_id"
@@ -55,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
         android:layout_marginLeft="30dp"
-        android:text="Stock ID" />
+        android:text="@string/stock_id" />
 
     <TextView
         android:id="@+id/extraLabel1"
@@ -113,8 +114,7 @@
         android:layout_marginLeft="140dp"
         android:layout_marginTop="80dp"
         android:autofillHints=""
-        android:ems="10"
-        android:hint="Carbonflies" />
+        android:ems="10" />
 
     <EditText
         android:id="@+id/man_entry_spec_declared"
@@ -124,7 +124,7 @@
         android:layout_marginLeft="490dp"
         android:layout_marginTop="70dp"
         android:ems="10"
-        android:hint="Enter Specifications" />
+        android:hint="@string/enter_specifications" />
 
     <EditText
         android:id="@+id/man_entry_specs"
@@ -144,7 +144,7 @@
         android:layout_marginLeft="490dp"
         android:layout_marginTop="140dp"
         android:ems="10"
-        android:hint="Enter Delivery Date" />
+        android:hint="@string/enter_delivery_date" />
 
     <EditText
         android:id="@+id/man_entry_stockid"
@@ -154,7 +154,7 @@
         android:layout_marginLeft="140dp"
         android:layout_marginTop="210dp"
         android:ems="10"
-        android:hint="Enter stock ID" />
+        android:hint="@string/enter_stock_id" />
 
 
     <EditText
@@ -165,7 +165,7 @@
         android:layout_marginLeft="140dp"
         android:layout_marginTop="140dp"
         android:ems="10"
-        android:hint="Enter quantity" />
+        android:hint="@string/enter_quantity" />
 
 
     <EditText

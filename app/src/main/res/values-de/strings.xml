@@ -33,6 +33,14 @@
     <string name="stock_search">Lagerbestand suchen</string>
     <string name="add_category">Kategorie hinzufügen</string>
     <string name="scan_delivery_note">Lieferschein Scannen</string>
+    <string name="stock_id">Charge Nr</string>
+    <string name="specifications">Spezifikation</string>
+    <string name="quantity">Quantität</string>
+    <string name="delivery_date">Lieferdatum</string>
+    <string name="enter_specifications">Bestätigen Spezif.</string>
+    <string name="enter_delivery_date">Wählen datum</string>
+    <string name="enter_stock_id">Bestätigen ChargeNr</string>
+    <string name="enter_quantity">Bestätigen Quantität</string>
 
     <string-array name="categories_array">
         <item>Carbonflies</item>
