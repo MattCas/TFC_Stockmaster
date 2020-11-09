@@ -39,6 +39,7 @@ import androidx.fragment.app.Fragment;
 import com.TFCStockmaster.MainActivity;
 import com.TFCStockmaster.PopUpClass;
 import com.TFCStockmaster.R;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -53,7 +54,8 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
     String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, imageurl, name;
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
-    ImageView qrImgView, imageView;
+    ImageView qrImgView;
+    PhotoView imageView;
     PopUpClass popUpClass = new PopUpClass();
     Bitmap photo, thumbnail;
     Uri imageUri;

@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
           measure.setText(rs.getString("einheit"));
           quantity.setText(rs.getString("quantitaet"));
           date.setText(rs.getString("lieferdatum"));
-          name.setText(rs.getString("name"));
+          name.setText(rs.getString("produktname"));
           extra1.setText(rs.getString("extra_spez1"));
           extra2.setText(rs.getString("extra_spez2"));
           extra3.setText(rs.getString("extra_spez3"));
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 "','" + specs + "','" + quantity + "','" + deliveryDate + "','" + name +"','" + extra1 + "','" + extra2 + "','" + extra3 +
                 "','" + extra4 + "','" + extra5 + "','" + extra6 + "','" + deliveryNotePhoto + "', getDate());";
         int res = stmt.executeUpdate(sql);
-        //Log.e("DBCOM", sql);
+        Log.e("DBCOM", sql);
         // Debug elseif
         if (res == 0) {
           Log.e("INSERT", "Inserted Failed");

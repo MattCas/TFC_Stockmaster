@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
 import com.TFCStockmaster.MainActivity;
 import com.TFCStockmaster.R;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 public class EntryEditFragment extends Fragment {
@@ -64,8 +64,8 @@ public class EntryEditFragment extends Fragment {
         final EditText extra4                = view.findViewById(R.id.edit_entry_extra4);
         final EditText extra5                = view.findViewById(R.id.edit_entry_extra5);
         final EditText extra6                = view.findViewById(R.id.edit_entry_extra6);
-        final EditText name                = view.findViewById(R.id.edit_entry_name);
-        final ImageView imgview              = view.findViewById(R.id.edit_img_view);
+        final EditText name                  = view.findViewById(R.id.edit_entry_name);
+        final PhotoView imgview              = view.findViewById(R.id.edit_img_view);
         editEntryRetrieveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,8 +76,6 @@ public class EntryEditFragment extends Fragment {
                 String stockID = userEnteredStockid.getText().toString();
                 // Enter code to retrieve entry details here
                 ((MainActivity) getActivity()).SearchDB(view, stockID,material,specs, measure, quantity, date, name, extra1, extra2, extra3, extra4, extra5, extra6, imgview);
-                photoZoomAttacher = new PhotoViewAttacher(imgview);
-                photoZoomAttacher.update();
             }
         });
         return view;

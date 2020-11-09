@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="createtable">
+<string name="createtable" translatable="false">
     CREATE TABLE StockTable (
     stockid varchar(32),
     material varchar(32),
     menge varchar(32),
     einheit varchar(32),
     lieferdatum varchar(32),
+    produktname varchar(32),
     extra_spez1 varchar(32),
     extra_spez2 varchar(32),
     extra_spez3 varchar(32),
