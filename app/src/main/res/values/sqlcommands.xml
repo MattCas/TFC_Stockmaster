@@ -6,6 +6,7 @@
     material varchar(32),
     menge varchar(32),
     einheit varchar(32),
+	quantitaet varchar(32),
     lieferdatum varchar(32),
     produktname varchar(32),
     extra_spez1 varchar(32),
@@ -14,7 +15,7 @@
     extra_spez4 varchar(32),
     extra_spez5 varchar(32),
     extra_spez6 varchar(32),
-    fotoid varchar(32),
+    fotoid varchar(MAX),
     buchunsdatum datetime
     ); </string>
 </resources>

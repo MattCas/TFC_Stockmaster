@@ -147,7 +147,38 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  // Insert into DB
+  // TODO Adjust inputs and recreate database to match
+  public void ReplaceDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String name, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto) {
+    try {
+      if (ConnectionClass.con == null) {
+        new ConnectionClass().setConnection();
+      }
 
+      if (ConnectionClass.con != null) {
+        Statement stmt = ConnectionClass.con.createStatement();
+        // SQL statement
+        String sql = "UPDATE StockTable SET stockid = '"+ stockid +"', material = '"+ material +"', menge = '"+ spec_declared +"', einheit = '"+ specs +"', quantitaet = '"+ quantity +"', " +
+                "lieferdatum = '"+ deliveryDate +"', produktname = '"+ name +"', extra_spez1 = '"+ extra1 +"', extra_spez2 = '"+ extra2 +"', extra_spez3 = '"+ extra3 +"', extra_spez4 = '"+ extra4 +"', " +
+                "extra_spez5 = '"+ extra5 +"', extra_spez6 = '"+ extra6 +"' WHERE stockid = '"+ stockid +"'";
+        Log.e("DBCOM", sql);
+        int res = stmt.executeUpdate(sql);
+
+        // Debug elseif
+        if (res == 0) {
+          Log.e("INSERT", "Inserted Failed");
+        } else {
+          Log.e("INSERT", "Inserted Normally");
+        }
+        Toast.makeText(getApplicationContext(), "Insert Query executed successfully", Toast.LENGTH_LONG).show();
+      } else {
+        Toast.makeText(getApplicationContext(), "Connection to server failed!", Toast.LENGTH_LONG).show();
+      }
+    } catch (Exception e) {
+      Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+      Log.e("INSERT", e.getMessage());
+    }
+  }
   public void openFragment(Fragment fragment) {
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     transaction.replace(R.id.container, fragment);

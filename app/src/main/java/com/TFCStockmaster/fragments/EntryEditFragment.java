@@ -12,11 +12,10 @@ import androidx.fragment.app.Fragment;
 import com.TFCStockmaster.MainActivity;
 import com.TFCStockmaster.R;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 public class EntryEditFragment extends Fragment {
 
-    PhotoViewAttacher photoZoomAttacher;
+    String material, specs, measure, date, stockID, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, name;
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -52,32 +51,86 @@ public class EntryEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_entry_edit, container, false);
         final Button editEntryRetrieveButton = view.findViewById(R.id.edit_entry_retrieve_button);
-        final EditText userEnteredStockid    = view.findViewById(R.id.edit_entry_stock_number);
-        final EditText material              = view.findViewById(R.id.edit_entry_material);
-        final EditText specs                 = view.findViewById(R.id.edit_entry_spec_declared);
-        final EditText measure               = view.findViewById(R.id.edit_entry_specs);
-        final EditText quantity              = view.findViewById(R.id.edit_entry_quantity);
-        final EditText date                  = view.findViewById(R.id.edit_entry_date);
-        final EditText extra1                = view.findViewById(R.id.edit_entry_extra1);
-        final EditText extra2                = view.findViewById(R.id.edit_entry_extra2);
-        final EditText extra3                = view.findViewById(R.id.edit_entry_extra3);
-        final EditText extra4                = view.findViewById(R.id.edit_entry_extra4);
-        final EditText extra5                = view.findViewById(R.id.edit_entry_extra5);
-        final EditText extra6                = view.findViewById(R.id.edit_entry_extra6);
-        final EditText name                  = view.findViewById(R.id.edit_entry_name);
+        final Button editEntryEditButton     = view.findViewById(R.id.edit_entry_send_button);
+        final EditText etStockID    = view.findViewById(R.id.edit_entry_stock_number);
+        final EditText etMaterial              = view.findViewById(R.id.edit_entry_material);
+        final EditText etSpecs                 = view.findViewById(R.id.edit_entry_spec_declared);
+        final EditText etMeasure               = view.findViewById(R.id.edit_entry_specs);
+        final EditText etQuantity              = view.findViewById(R.id.edit_entry_quantity);
+        final EditText etDate                  = view.findViewById(R.id.edit_entry_date);
+        final EditText etExtra1                = view.findViewById(R.id.edit_entry_extra1);
+        final EditText etExtra2                = view.findViewById(R.id.edit_entry_extra2);
+        final EditText etExtra3                = view.findViewById(R.id.edit_entry_extra3);
+        final EditText etExtra4                = view.findViewById(R.id.edit_entry_extra4);
+        final EditText etExtra5                = view.findViewById(R.id.edit_entry_extra5);
+        final EditText etExtra6                = view.findViewById(R.id.edit_entry_extra6);
+        final EditText etName                  = view.findViewById(R.id.edit_entry_name);
         final PhotoView imgview              = view.findViewById(R.id.edit_img_view);
+
+
         editEntryRetrieveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast toast = Toast.makeText(getActivity(), "EditEntryButtonPressed", Toast.LENGTH_SHORT);
-                //toast.show();
-                // Have to setContentview before fetching text from EditText
-                //EditText userStockNum = view.findViewById(R.id.edit_entry_stock_number);
-                String stockID = userEnteredStockid.getText().toString();
+                stockID = etStockID.getText().toString();
                 // Enter code to retrieve entry details here
-                ((MainActivity) getActivity()).SearchDB(view, stockID,material,specs, measure, quantity, date, name, extra1, extra2, extra3, extra4, extra5, extra6, imgview);
+                ((MainActivity) getActivity()).SearchDB(view, stockID, etMaterial, etSpecs, etMeasure, etQuantity, etDate, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview);
+
             }
         });
+
+        editEntryEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Must be passed in method because they're final vars
+                //assignSubmitFields(etSpecs, etDate);
+                assignSubmitFields(etMaterial, etMeasure, etDate, etMeasure, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6);
+                // Edit entry in DB
+                ((MainActivity) getActivity()).ReplaceDB(view,stockID, material, specs,
+                        measure, quantity, date, name, extra1, extra2, extra3, extra4, extra5, extra6, "getPhotoURLHereSomehow");
+
+                //postSubmissionCleanup();
+            }
+        });
+
+
+
         return view;
     }
+
+    public void assignSubmitFields(EditText etMaterial, EditText etSpecs, EditText etDate, EditText etMeasure, EditText etQuantity, EditText etName, EditText etExtra1, EditText etExtra2, EditText etExtra3, EditText etExtra4, EditText etExtra5, EditText etExtra6){
+        // Create string entries for DB command and invoke DB insertion method
+
+        material                  = etMaterial.getText().toString();
+        specs                     = etSpecs.getText().toString();
+        date                      = etDate.getText().toString();
+        measure                   = etMeasure.getText().toString();
+        quantity                  = etQuantity.getText().toString();
+        name                      = etName.getText().toString();
+        photoid                   = "photoID4Retrieval";
+        extra1                    = etExtra1.getText().toString();
+        extra2                    = etExtra2.getText().toString();
+        extra3                    = etExtra3.getText().toString();
+        extra4                    = etExtra4.getText().toString();
+        extra5                    = etExtra5.getText().toString();
+        extra6                    = etExtra6.getText().toString();
+    }
+
+    /*
+    public void postSubmissionCleanup(){
+        etSpecDeclared.getText().clear();
+        etQuantity.getText().clear();
+        etDeliveryDate.getText().clear();
+        etStockid.getText().clear();
+        etName.getText().clear();
+        etExtra1.getText().clear();
+        etExtra2.getText().clear();
+        etExtra3.getText().clear();
+        etExtra3.getText().clear();
+        etExtra4.getText().clear();
+        etExtra5.getText().clear();
+        etExtra6.getText().clear();
+        imageView.setImageResource(android.R.color.transparent);
+    }
+
+     */
 }
