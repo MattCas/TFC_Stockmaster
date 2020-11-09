@@ -70,12 +70,21 @@
         />
 
     <TextView
-        android:id="@+id/delivery_date_label_edit_entry"
+    android:id="@+id/delivery_date_label_edit_entry"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="370dp"
+    android:layout_marginTop="250dp"
+    android:text="@string/delivery_date" />
+
+
+    <TextView
+        android:id="@+id/name_label_edit_entry"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="370dp"
-        android:layout_marginTop="250dp"
-        android:text="@string/delivery_date" />
+        android:layout_marginTop="320dp"
+        android:text="@string/product_name" />
 
     <TextView
         android:id="@+id/edit_entry_stock_id"
@@ -174,6 +183,7 @@
         android:ems="10"
         android:hint="@string/enter_delivery_date" />
 
+
     <EditText
         android:id="@+id/edit_entry_stockid"
         android:layout_width="180dp"
@@ -184,7 +194,6 @@
         android:ems="10"
         android:hint="@string/enter_stock_id" />
 
-
     <EditText
         android:id="@+id/edit_entry_quantity"
         android:layout_width="180dp"
@@ -194,6 +203,16 @@
         android:layout_marginTop="240dp"
         android:ems="10"
         android:hint="@string/enter_quantity" />
+
+    <EditText
+        android:id="@+id/edit_entry_name"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="490dp"
+        android:layout_marginTop="310dp"
+        android:ems="10"
+        android:hint="@string/enter_product_name" />
 
 
     <EditText

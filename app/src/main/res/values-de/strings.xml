@@ -3,7 +3,6 @@
     <string name="app_name">TFC Stockmaster</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delivery_note_scan">Lieferschein Scannen</string>
     <string name="manual_entry">Manuell Eintrag</string>
     <string name="modify_entry">Eintrag Bearbeiten</string>
@@ -17,7 +16,7 @@
 
     <string name="carbon_specs">G/M2</string>
     <string name="reshard_specs">KG</string>
-    <string name="foam_specs">cm</string>
+    <string name="foam_specs">mm</string>
     <string name="hose_specs">M</string>
     <string name="sapl">KG</string>
 
@@ -28,6 +27,7 @@
     <string name="tested_tolerance">Geprüfte Toleranz</string>
     <string name="type">Typ</string>
     <string name="leave_blank">Freilassen</string>
+    <string name="product_name">Produkt Name</string>
 
     <string name="entry">Eintrag</string>
     <string name="stock_search">Lagerbestand suchen</string>
@@ -41,10 +41,12 @@
     <string name="enter_delivery_date">Wählen datum</string>
     <string name="enter_stock_id">Bestätigen ChargeNr</string>
     <string name="enter_quantity">Bestätigen Quantität</string>
+    <string name="enter_product_name">Bestätigen produkt name</string>
 
     <string-array name="categories_array">
         <item>Carbonflies</item>
-        <item>Harzmenge</item>
+        <item>Glasgelege</item>
+        <item>Harz</item>
         <item>Harter</item>
         <item>Schaum</item>
         <item>Hose</item>

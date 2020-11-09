@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
 
 import com.TFCStockmaster.MainActivity;
@@ -43,12 +45,13 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     DatePickerDialog picker;
-    EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
-    String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, imageurl;
+    EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
+    String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, imageurl, name;
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
     ImageView qrImgView, imageView;
     PopUpClass popUpClass = new PopUpClass();
@@ -104,6 +107,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         etSpecDeclared                    = view.findViewById(R.id.man_entry_spec_declared);
         etQuantity                        = view.findViewById(R.id.man_entry_quantity);
         etStockid                         = view.findViewById(R.id.man_entry_stockid);
+        etName                            = view.findViewById(R.id.man_entry_name);
         etExtra1                          = view.findViewById(R.id.man_entry_extra1);
         etExtra2                          = view.findViewById(R.id.man_entry_extra2);
         etExtra3                          = view.findViewById(R.id.man_entry_extra3);
@@ -128,7 +132,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 assignSubmitFields(etSpecs, etDeliveryDate);
                 // Enter code to submit entry details here
                 ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared,
-                        specs, quantity, deliveryDate, extra1, extra2, extra3, extra4, extra5, extra6, imageurl);
+                        specs, quantity, deliveryDate, name, extra1, extra2, extra3, extra4, extra5, extra6, imageurl);
 
                 popUpClass.showPopupWindow(view, makeQRCode());
                 postSubmissionCleanup();
@@ -150,6 +154,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                     values = new ContentValues();
                     values.put(MediaStore.Images.Media.TITLE, "New Picture");
                     values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+
                     imageUri = getContext().getContentResolver().insert(
                             MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -173,6 +178,8 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
            switch (material){
                case "Carbonflies":
                case "Carbonfiber":
+               case "Glassfiber":
+               case "Glasgelege":
                    initialiseExtraFields();
                   spec.setText(R.string.carbon_specs);
                   etExtra1.setHint("");
@@ -180,7 +187,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                   setExtraLabels(getString(R.string.given_tolerance), getString(R.string.tested_tolerance), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required), getString(R.string.not_required));
                   break;
                   //need to separate?
-               case "Harzmenge":
+               case "Harz":
                case "Harter":
                case "Resin":
                case "Hardener":
@@ -227,6 +234,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         deliveryDate            = etDeliveryDate.getText().toString();
         spec_declared           = etSpecDeclared.getText().toString();
         quantity                = etQuantity.getText().toString();
+        name                    = etName.getText().toString();
         photoid                 = "photoID4Retrieval";
         extra1                  = etExtra1.getText().toString();
         extra2                  = etExtra2.getText().toString();
@@ -255,16 +263,16 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private Bitmap makeQRCode() {
-        String qrStock              = "StockID : " + stockidstring;
-        String qrMaterial           = "Material: " + material;
-        String qrSpecQuantifier     = "Menge: " + spec_declared;
-        String qrSpec               = "Einheit: " + specs;
-        String qrQuantity           = "Quantitaet: " + quantity;
-        String qrDeliveryDate       = "Lieferdatum: " + deliveryDate;
+        String qrName               = "Name: "          + name;
+        String qrStock              = "StockID: "       + stockidstring;
+        String qrMaterial           = "Material: "      + material;
+        String qrSpecQuantifier     = "Menge: "         + spec_declared;
+        String qrSpec               = "Einheit: "       + specs;
+        String qrDeliveryDate       = "Lieferdatum: "   + deliveryDate;
         Bitmap qr = null;
 
         StringBuilder textToSend = new StringBuilder();
-        textToSend.append(qrStock+" \n "+qrMaterial +" \n "+qrSpecQuantifier +" \n "+qrSpec +" \n "+qrQuantity +" \n "+ qrDeliveryDate );
+        textToSend.append(qrName+" \n "+qrStock+" \n "+qrMaterial +" \n "+qrSpecQuantifier +" \n "+qrSpec +" \n "+ qrDeliveryDate );
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 800, 300);
@@ -323,6 +331,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         etQuantity.getText().clear();
         etDeliveryDate.getText().clear();
         etStockid.getText().clear();
+        etName.getText().clear();
         etExtra1.getText().clear();
         etExtra2.getText().clear();
         etExtra3.getText().clear();
@@ -358,6 +367,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                         try {
                             thumbnail = MediaStore.Images.Media.getBitmap(
                                     getActivity().getContentResolver(), imageUri);
+                            //thumbnail = rotateImage(thumbnail, 90);
                             imageView.setImageBitmap(thumbnail);
                             imageurl = getRealPathFromURI(imageUri);
                             Log.e("URLimg", imageurl);
@@ -376,6 +386,38 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    /**
+     * Rotate an image if required.
+     *
+     * @param img           The image bitmap
+     * @param selectedImage Image URI
+     * @return The resulted Bitmap after manipulation
+     */
+    private static Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage) throws  IOException {
+
+        ExifInterface ei = new ExifInterface(selectedImage.getPath());
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
     }
 
 

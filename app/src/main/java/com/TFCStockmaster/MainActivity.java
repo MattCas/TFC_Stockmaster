@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
   // Search DB by stockID
   // TODO Return results as usable variables, rather than void method
-  public void SearchDB(View view, String stockID, EditText material, EditText specs, EditText measure, EditText quantity,  EditText date,
-                       EditText extra1, EditText extra2,EditText extra3, EditText extra4,EditText extra5, EditText extra6, ImageView deliverynoteview) {
+  public void SearchDB(View view, String stockID, EditText material, EditText specs, EditText measure, EditText quantity, EditText date, EditText name,
+                       EditText extra1, EditText extra2, EditText extra3, EditText extra4, EditText extra5, EditText extra6, ImageView deliverynoteview) {
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
           measure.setText(rs.getString("einheit"));
           quantity.setText(rs.getString("quantitaet"));
           date.setText(rs.getString("lieferdatum"));
+          name.setText(rs.getString("name"));
           extra1.setText(rs.getString("extra_spez1"));
           extra2.setText(rs.getString("extra_spez2"));
           extra3.setText(rs.getString("extra_spez3"));
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
   // Insert into DB
   // TODO Adjust inputs and recreate database to match
-  public void InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto) {
+  public void InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String name, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto) {
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         Statement stmt = ConnectionClass.con.createStatement();
         // SQL statement
         String sql = "insert INTO StockTable VALUES('" + stockid + "','" + material + "','" + spec_declared +
-                "','" + specs + "','" + quantity + "','" + deliveryDate + "','" + extra1 + "','" + extra2 + "','" + extra3 +
+                "','" + specs + "','" + quantity + "','" + deliveryDate + "','" + name +"','" + extra1 + "','" + extra2 + "','" + extra3 +
                 "','" + extra4 + "','" + extra5 + "','" + extra6 + "','" + deliveryNotePhoto + "', getDate());";
         int res = stmt.executeUpdate(sql);
         //Log.e("DBCOM", sql);
