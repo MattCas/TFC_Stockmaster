@@ -32,6 +32,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
   BottomNavigationView bottomNavigation;
+  private ImageView statusIndicator;
   private static final String TAG = "upload";
   private Button deLangButton, enLangButton;
 
@@ -43,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
     bottomNavigation = findViewById(R.id.bottom_navigation);
     bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
     openFragment(NewEntryFragment.newInstance("", ""));
-    //CheckConnection(findViewById(android.R.id.content).getRootView());
+
+    statusIndicator = findViewById(R.id.status_img_view);
+    //CheckConnection(findViewById(android.R.id.content).getRootView(), statusIndicator);
 
 
     // Set German language
@@ -208,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
   // Basic check for database connection established
   // TODO Delete before app delivery or use to visualise database status
-  public void CheckConnection(View view) {
+  public void CheckConnection(View view, ImageView dbStatusIndicator) {
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
@@ -216,23 +219,26 @@ public class MainActivity extends AppCompatActivity {
 
       if (ConnectionClass.con != null) {
         Statement stmt = ConnectionClass.con.createStatement();
-        String sql = "select * from StockSample";
+        String sql = "select * from StockTable";
         ResultSet rs = stmt.executeQuery(sql);
         Log.e("ASK", "-------------------");
         while (rs.next()) {
-          Log.e("ASK", rs.getString("Sample"));
-          Log.e("ASK", rs.getString("StockID"));
-          Log.e("ASK", rs.getString("Category"));
+          Log.e("ASK", rs.getString("stockid"));
+          Log.e("ASK", rs.getString("material"));
+          Log.e("ASK", rs.getString("menge"));
         }
         Log.e("ASK", "------------------");
 
         Toast.makeText(getApplicationContext(), "Query executed successfully", Toast.LENGTH_LONG).show();
+        dbStatusIndicator.setImageResource(android.R.color.holo_green_dark);
       } else {
         Toast.makeText(getApplicationContext(), "Connection to server failed!", Toast.LENGTH_LONG).show();
+        dbStatusIndicator.setImageResource(android.R.color.holo_red_light);
       }
     } catch (Exception e) {
       Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
       Log.e("ASK", e.getMessage());
+      dbStatusIndicator.setImageResource(android.R.color.holo_red_light);
     }
   }
 

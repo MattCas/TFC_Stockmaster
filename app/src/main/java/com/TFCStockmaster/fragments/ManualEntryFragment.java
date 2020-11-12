@@ -277,7 +277,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         textToSend.append(qrName+" \n "+qrStock+" \n "+qrMaterial +" \n "+qrSpecQuantifier +" \n "+qrSpec +" \n "+ qrDeliveryDate );
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 800, 300);
+            BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 2000, 720);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             qr = barcodeEncoder.createBitmap(bitMatrix);
             qr = addQrLabel(textToSend.toString(), qr);
@@ -308,7 +308,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
 
             Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG);
             paintText.setColor(Color.BLACK);
-            paintText.setTextSize(15);
+            paintText.setTextSize(39);
             paintText.setStyle(Paint.Style.FILL);
             paintText.setTextAlign(Paint.Align.LEFT);
             //paintText.setShadowLayer(10f, 10f, 10f, Color.BLACK);
