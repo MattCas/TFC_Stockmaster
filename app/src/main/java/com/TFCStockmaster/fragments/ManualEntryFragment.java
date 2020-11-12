@@ -369,7 +369,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                         try {
                             thumbnail = MediaStore.Images.Media.getBitmap(
                                     getActivity().getContentResolver(), imageUri);
-                            //thumbnail = rotateImage(thumbnail, 90);
+                            thumbnail =  ((MainActivity) getActivity()).rotateImage(thumbnail, 90);
                             imageView.setImageBitmap(thumbnail);
                             imageurl = getRealPathFromURI(imageUri);
                             Log.e("URLimg", imageurl);
@@ -421,7 +421,5 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         img.recycle();
         return rotatedImg;
     }
-
-
 
 }

@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
   BottomNavigationView bottomNavigation;
   private ImageView statusIndicator;
   private static final String TAG = "upload";
-  private Button deLangButton, enLangButton;
+  private Button deLangButton, enLangButton, dbTestButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     openFragment(NewEntryFragment.newInstance("", ""));
 
     statusIndicator = findViewById(R.id.status_img_view);
-    //CheckConnection(findViewById(android.R.id.content).getRootView(), statusIndicator);
+    CheckConnection(findViewById(android.R.id.content).getRootView(), statusIndicator);
 
 
     // Set German language
@@ -68,6 +69,16 @@ public class MainActivity extends AppCompatActivity {
         // Must be passed in method because they're final vars
         setLocale("en");
         recreate();
+      }
+    });
+
+    // Set English language
+    dbTestButton = this.findViewById(R.id.db_test_button);
+    dbTestButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        // Must be passed in method because they're final vars
+        CheckConnection(view, statusIndicator);
       }
     });
   }
@@ -212,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
   // Basic check for database connection established
   // TODO Delete before app delivery or use to visualise database status
   public void CheckConnection(View view, ImageView dbStatusIndicator) {
+
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
@@ -220,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
       if (ConnectionClass.con != null) {
         Statement stmt = ConnectionClass.con.createStatement();
         String sql = "select * from StockTable";
+        //stmt.setQueryTimeout(3);
         ResultSet rs = stmt.executeQuery(sql);
         Log.e("ASK", "-------------------");
         while (rs.next()) {
@@ -283,7 +296,17 @@ public class MainActivity extends AppCompatActivity {
 
   private void loadImageFromLocalStore(String url, ImageView imageView){
     Bitmap bitmap = BitmapFactory.decodeFile(url);
+    bitmap = rotateImage(bitmap, 90);
     imageView.setImageBitmap(bitmap);
   }
+
+  public static Bitmap rotateImage(Bitmap img, int degree) {
+    Matrix matrix = new Matrix();
+    matrix.postRotate(degree);
+    Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+    img.recycle();
+    return rotatedImg;
+  }
+
 
 }

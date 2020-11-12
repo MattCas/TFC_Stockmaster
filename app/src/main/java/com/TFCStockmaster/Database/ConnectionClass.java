@@ -16,6 +16,7 @@ public class ConnectionClass {
             String ip = "192.168.2.3:1430";
             String ConnURL = "jdbc:jtds:sqlserver://"+ ip + ";user=PLC;password=presse;databasename=MASCHINEN;";
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
+            DriverManager.setLoginTimeout(4);
             con = DriverManager.getConnection(ConnURL);
             Log.e("ASK","Connection Called");
         }
