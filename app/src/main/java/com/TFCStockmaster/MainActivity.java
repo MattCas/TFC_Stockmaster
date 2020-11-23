@@ -4,7 +4,11 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -25,6 +29,11 @@ import com.TFCStockmaster.fragments.CategoryEditFragment;
 import com.TFCStockmaster.fragments.NewEntryFragment;
 import com.TFCStockmaster.fragments.StockSearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -307,6 +316,70 @@ public class MainActivity extends AppCompatActivity {
     img.recycle();
     return rotatedImg;
   }
+
+  public Bitmap makeQRCode(String name, String stockID, String material, String specs, String measure, String date ) {
+    String qrName               = "Name-"          + name;
+    String qrStock              = "StockID-"       + stockID;
+    String qrMaterial           = "Material-"      + material;
+    String qrSpecQuantifier     = "Menge-"         + specs;
+    String qrSpec               =  measure;
+    String qrDeliveryDate       = "Lieferdatum-"   + date;
+    Bitmap qr = null;
+
+    StringBuilder textToSend = new StringBuilder();
+    textToSend.append(qrName+"\n"+qrStock+"\n"+qrMaterial +"\n"+qrSpecQuantifier +qrSpec +"\n"+ qrDeliveryDate );
+    MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+    try {
+      BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 2000, 720);
+      BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+      qr = barcodeEncoder.createBitmap(bitMatrix);
+      qr = addQrLabel(textToSend.toString(), qr);
+
+
+    } catch (WriterException e) {
+      e.printStackTrace();
+    }
+    return qr;
+  }
+
+
+  public Bitmap addQrLabel(String label, Bitmap qr){
+    Bitmap bm1 = null;
+    Bitmap newBitmap = null;
+    bm1 = qr;
+    Bitmap.Config config = bm1.getConfig();
+    if(config == null){
+      config = Bitmap.Config.ARGB_8888;
+    }
+
+    newBitmap = Bitmap.createBitmap(bm1.getWidth(), bm1.getHeight(), config);
+    Canvas newCanvas = new Canvas(newBitmap);
+
+    newCanvas.drawBitmap(bm1, 0, 0, null);
+
+    String captionString = label;
+    if(captionString != null){
+
+      Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG);
+      paintText.setColor(Color.BLACK);
+      paintText.setTextSize(39);
+      paintText.setStyle(Paint.Style.FILL);
+      paintText.setTextAlign(Paint.Align.LEFT);
+      //paintText.setShadowLayer(10f, 10f, 10f, Color.BLACK);
+
+      Rect rectText = new Rect();
+      paintText.getTextBounds(captionString, 0, captionString.length(), rectText);
+
+      newCanvas.drawText(captionString,
+              0, rectText.height(), paintText);
+    }else{
+      Toast.makeText(this,
+              "caption empty!",
+              Toast.LENGTH_LONG).show();
+    }
+    return newBitmap;
+  }
+
 
 
 }

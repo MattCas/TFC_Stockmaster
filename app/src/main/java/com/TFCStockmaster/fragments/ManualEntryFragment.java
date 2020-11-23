@@ -8,11 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,20 +28,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
 
 import com.TFCStockmaster.MainActivity;
 import com.TFCStockmaster.PopUpClass;
 import com.TFCStockmaster.R;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.io.IOException;
 import java.util.Calendar;
 
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -136,10 +124,8 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared,
                         specs, quantity, deliveryDate, name, extra1, extra2, extra3, extra4, extra5, extra6, imageurl);
 
-                popUpClass.showPopupWindow(view, makeQRCode());
+                popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name,stockidstring,material,spec_declared,specs,deliveryDate));
                 postSubmissionCleanup();
-
-                //loadImageFromLocalStore(imageurl);
             }
         });
 
@@ -264,70 +250,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         tvExtra6 = view.findViewById(R.id.extraLabel6);
     }
 
-    private Bitmap makeQRCode() {
-        String qrName               = "Name-"          + name;
-        String qrStock              = "StockID-"       + stockidstring;
-        String qrMaterial           = "Material-"      + material;
-        String qrSpecQuantifier     = "Menge-"         + spec_declared;
-        String qrSpec               =  specs;
-        String qrDeliveryDate       = "Lieferdatum-"   + deliveryDate;
-        Bitmap qr = null;
-
-        StringBuilder textToSend = new StringBuilder();
-        textToSend.append(qrName+"\n"+qrStock+"\n"+qrMaterial+"\n"+qrSpecQuantifier+qrSpec +"\n"+ qrDeliveryDate);
-        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-        try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 2000, 720);
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            qr = barcodeEncoder.createBitmap(bitMatrix);
-            qr = addQrLabel(textToSend.toString(), qr);
-
-
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
-        return qr;
-    }
-
-    private Bitmap addQrLabel(String label, Bitmap qr){
-        Bitmap bm1 = null;
-        Bitmap newBitmap = null;
-        bm1 = qr;
-        Bitmap.Config config = bm1.getConfig();
-        if(config == null){
-            config = Bitmap.Config.ARGB_8888;
-        }
-
-        newBitmap = Bitmap.createBitmap(bm1.getWidth(), bm1.getHeight(), config);
-        Canvas newCanvas = new Canvas(newBitmap);
-
-        newCanvas.drawBitmap(bm1, 0, 0, null);
-
-        String captionString = label;
-        if(captionString != null){
-
-            Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG);
-            paintText.setColor(Color.BLACK);
-            paintText.setTextSize(39);
-            paintText.setStyle(Paint.Style.FILL);
-            paintText.setTextAlign(Paint.Align.LEFT);
-            //paintText.setShadowLayer(10f, 10f, 10f, Color.BLACK);
-
-            Rect rectText = new Rect();
-            paintText.getTextBounds(captionString, 0, captionString.length(), rectText);
-
-            newCanvas.drawText(captionString,
-                    0, rectText.height(), paintText);
-        }else{
-            Toast.makeText(getContext(),
-                    "caption empty!",
-                    Toast.LENGTH_LONG).show();
-        }
-        return newBitmap;
-    }
-
-
-
     public void postSubmissionCleanup(){
         etSpecDeclared.getText().clear();
         etQuantity.getText().clear();
@@ -343,7 +265,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         etExtra6.getText().clear();
         imageView.setImageResource(android.R.color.transparent);
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -389,37 +310,4 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
-
-    /**
-     * Rotate an image if required.
-     *
-     * @param img           The image bitmap
-     * @param selectedImage Image URI
-     * @return The resulted Bitmap after manipulation
-     */
-    private static Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage) throws  IOException {
-
-        ExifInterface ei = new ExifInterface(selectedImage.getPath());
-        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                return rotateImage(img, 90);
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                return rotateImage(img, 180);
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                return rotateImage(img, 270);
-            default:
-                return img;
-        }
-    }
-
-    private static Bitmap rotateImage(Bitmap img, int degree) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(degree);
-        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
-        img.recycle();
-        return rotatedImg;
-    }
-
 }
