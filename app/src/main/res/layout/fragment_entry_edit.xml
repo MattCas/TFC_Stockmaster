@@ -12,10 +12,22 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="70dp"
-        android:layout_marginEnd="81dp"
-        android:layout_marginRight="81dp"
+        android:layout_marginRight="300dp"
         android:background="@drawable/tfc_custom_button"
         android:text="@string/stock_id_lookup"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/edit_entry_send_button"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/tfc_custom_button"
+        android:text="@string/modify_entry"
         android:textAllCaps="false"
         android:textColor="#FFFFFF" />
 
@@ -267,14 +279,5 @@
         android:layout_marginTop="610dp"
         android:visibility="visible" />
 
-    <Button
-        android:id="@+id/edit_entry_send_button"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/tfc_custom_button"
-        android:text="@string/modify_entry"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF" />
+
 </RelativeLayout>

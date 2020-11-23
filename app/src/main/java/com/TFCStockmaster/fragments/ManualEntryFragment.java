@@ -265,16 +265,16 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private Bitmap makeQRCode() {
-        String qrName               = "Name: "          + name;
-        String qrStock              = "StockID: "       + stockidstring;
-        String qrMaterial           = "Material: "      + material;
-        String qrSpecQuantifier     = "Menge: "         + spec_declared;
-        String qrSpec               = "Einheit: "       + specs;
-        String qrDeliveryDate       = "Lieferdatum: "   + deliveryDate;
+        String qrName               = "Name-"          + name;
+        String qrStock              = "StockID-"       + stockidstring;
+        String qrMaterial           = "Material-"      + material;
+        String qrSpecQuantifier     = "Menge-"         + spec_declared;
+        String qrSpec               =  specs;
+        String qrDeliveryDate       = "Lieferdatum-"   + deliveryDate;
         Bitmap qr = null;
 
         StringBuilder textToSend = new StringBuilder();
-        textToSend.append(qrName+" \n "+qrStock+" \n "+qrMaterial +" \n "+qrSpecQuantifier +" \n "+qrSpec +" \n "+ qrDeliveryDate );
+        textToSend.append(qrName+"\n"+qrStock+"\n"+qrMaterial+"\n"+qrSpecQuantifier+qrSpec +"\n"+ qrDeliveryDate);
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 2000, 720);

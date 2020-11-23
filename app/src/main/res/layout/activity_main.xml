@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TestDB Status"
-        android:layout_marginLeft="620dp"
+        android:layout_marginLeft="660dp"
         >
     </androidx.appcompat.widget.AppCompatButton>
 
