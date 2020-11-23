@@ -153,19 +153,19 @@ public class EntryEditFragment extends Fragment {
 
 
     private Bitmap makeQRCode() {
-        String qrName               = "Name: "          + name;
-        String qrStock              = "StockID: "       + stockID;
-        String qrMaterial           = "Material: "      + material;
-        String qrSpecQuantifier     = "Menge: "         + specs;
-        String qrSpec               = "Einheit: "       + measure;
-        String qrDeliveryDate       = "Lieferdatum: "   + date;
+        String qrName               = "Name-"          + name;
+        String qrStock              = "StockID-"       + stockID;
+        String qrMaterial           = "Material-"      + material;
+        String qrSpecQuantifier     = "Menge-"         + specs;
+        String qrSpec               =  measure;
+        String qrDeliveryDate       = "Lieferdatum-"   + date;
         Bitmap qr = null;
 
         StringBuilder textToSend = new StringBuilder();
-        textToSend.append(qrName+" \n "+qrStock+" \n "+qrMaterial +" \n "+qrSpecQuantifier +" \n "+qrSpec +" \n "+ qrDeliveryDate );
+        textToSend.append(qrName+"\n"+qrStock+"\n"+qrMaterial +"\n"+qrSpecQuantifier +qrSpec +"\n"+ qrDeliveryDate );
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 1170, 720);
+            BitMatrix bitMatrix = multiFormatWriter.encode(textToSend.toString(), BarcodeFormat.QR_CODE, 2000, 720);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             qr = barcodeEncoder.createBitmap(bitMatrix);
             qr = addQrLabel(textToSend.toString(), qr);
