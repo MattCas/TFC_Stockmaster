@@ -28,6 +28,7 @@ import com.TFCStockmaster.Database.ConnectionClass;
 import com.TFCStockmaster.fragments.CategoryEditFragment;
 import com.TFCStockmaster.fragments.NewEntryFragment;
 import com.TFCStockmaster.fragments.StockSearchFragment;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -139,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
   }
 
   // Insert into DB
-  // TODO Adjust inputs and recreate database to match
   public void InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String name, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto) {
     try {
       if (ConnectionClass.con == null) {
@@ -170,8 +170,7 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  // Insert into DB
-  // TODO Adjust inputs and recreate database to match
+  // Replace into DB using StockID as primary key
   public void ReplaceDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String name, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto) {
     try {
       if (ConnectionClass.con == null) {
@@ -202,6 +201,8 @@ public class MainActivity extends AppCompatActivity {
       Log.e("INSERT", e.getMessage());
     }
   }
+
+  // Start new fragment
   public void openFragment(Fragment fragment) {
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     transaction.replace(R.id.container, fragment);
@@ -209,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
     transaction.commit();
   }
 
-
+  // Bottom bar listener
   BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
           new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -230,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
           };
 
   // Basic check for database connection established
-  // TODO Delete before app delivery or use to visualise database status
   public void CheckConnection(View view, ImageView dbStatusIndicator) {
 
     try {
@@ -264,7 +264,6 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-
   @Override
   protected void onResume() {
     // TODO Auto-generated method stub
@@ -291,10 +290,10 @@ public class MainActivity extends AppCompatActivity {
     Log.i(TAG, "onSaveInstanceState");
   }
 
-
+  // Multilingual support
   public void setLocale(String lang) {
     Resources res = getResources();
-    // Change locale settings in the app.
+    // Change locale settings in the app
     DisplayMetrics dm = res.getDisplayMetrics();
     android.content.res.Configuration conf = res.getConfiguration();
     conf.locale = new Locale(lang);
@@ -365,8 +364,6 @@ public class MainActivity extends AppCompatActivity {
       paintText.setTextSize(39);
       paintText.setStyle(Paint.Style.FILL);
       paintText.setTextAlign(Paint.Align.LEFT);
-      //paintText.setShadowLayer(10f, 10f, 10f, Color.BLACK);
-
       Rect rectText = new Rect();
       paintText.getTextBounds(captionString, 0, captionString.length(), rectText);
 
@@ -380,6 +377,21 @@ public class MainActivity extends AppCompatActivity {
     return newBitmap;
   }
 
-
-
+  // Clear all fields
+  public void postSubmissionCleanup(EditText etSpecs, EditText etQuantity, EditText etDeliveryDate, EditText etStockid, EditText etMeasure, EditText etName, EditText etExtra1, EditText etExtra2, EditText etExtra3, EditText etExtra4, EditText etExtra5, EditText etExtra6, PhotoView imgview){
+    etSpecs.getText().clear();
+    etQuantity.getText().clear();
+    etDeliveryDate.getText().clear();
+    etStockid.getText().clear();
+    etName.getText().clear();
+    etMeasure.getText().clear();
+    etExtra1.getText().clear();
+    etExtra2.getText().clear();
+    etExtra3.getText().clear();
+    etExtra3.getText().clear();
+    etExtra4.getText().clear();
+    etExtra5.getText().clear();
+    etExtra6.getText().clear();
+    imgview.setImageResource(android.R.color.transparent);
+  }
 }

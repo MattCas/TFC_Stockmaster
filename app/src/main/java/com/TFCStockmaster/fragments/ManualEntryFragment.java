@@ -45,7 +45,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     ImageView qrImgView;
     PhotoView imageView;
     PopUpClass popUpClass = new PopUpClass();
-    Bitmap photo, thumbnail;
+    Bitmap thumbnail;
     Uri imageUri;
     ContentValues values;
     private static final int CAMERA_REQUEST = 1888;
@@ -107,7 +107,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         qrImgView                         = view.findViewById(R.id.popup_qr_view);
         imageView                         = view.findViewById(R.id.man_img_view);
 
-
         // Setup material spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.categories_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -120,12 +119,12 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
             public void onClick(View view) {
                 // Must be passed in method because they're final vars
                 assignSubmitFields(etSpecs, etDeliveryDate);
-                // Enter code to submit entry details here
-                ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared,
-                        specs, quantity, deliveryDate, name, extra1, extra2, extra3, extra4, extra5, extra6, imageurl);
-
+                // DB entry code
+                ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared, specs, quantity, deliveryDate, name, extra1, extra2, extra3, extra4, extra5, extra6, imageurl);
+                // Show QR code popup window
                 popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name,stockidstring,material,spec_declared,specs,deliveryDate));
-                postSubmissionCleanup();
+                // Cleanup form
+                ((MainActivity) getActivity()).postSubmissionCleanup(etSpecs, etQuantity, etDeliveryDate, etStockid, etSpecDeclared, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imageView);
             }
         });
 
@@ -135,7 +134,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         manEntryPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_CAMERA_PERMISSION_CODE);
                 } else {
@@ -155,7 +153,8 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         // Inflate the layout for this fragment
         return view;
     }
-    // Set Material variable from spinner selection
+
+    // Set Material variable from spinner selection and link units
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         Log.e("randlist", "listener was called");
@@ -199,7 +198,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         else{
             Log.e("randlist", "EditText obj is null");
         }
-
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
@@ -250,22 +248,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         tvExtra6 = view.findViewById(R.id.extraLabel6);
     }
 
-    public void postSubmissionCleanup(){
-        etSpecDeclared.getText().clear();
-        etQuantity.getText().clear();
-        etDeliveryDate.getText().clear();
-        etStockid.getText().clear();
-        etName.getText().clear();
-        etExtra1.getText().clear();
-        etExtra2.getText().clear();
-        etExtra3.getText().clear();
-        etExtra3.getText().clear();
-        etExtra4.getText().clear();
-        etExtra5.getText().clear();
-        etExtra6.getText().clear();
-        imageView.setImageResource(android.R.color.transparent);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -283,7 +265,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-
             case PICTURE_RESULT:
                 if (requestCode == PICTURE_RESULT)
                     if (resultCode == Activity.RESULT_OK) {
