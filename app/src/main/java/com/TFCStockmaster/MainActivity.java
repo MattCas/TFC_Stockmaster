@@ -378,7 +378,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   // Clear all fields
-  public void postSubmissionCleanup(EditText etSpecs, EditText etQuantity, EditText etDeliveryDate, EditText etStockid, EditText etMeasure, EditText etName, EditText etExtra1, EditText etExtra2, EditText etExtra3, EditText etExtra4, EditText etExtra5, EditText etExtra6, PhotoView imgview){
+  public void postSubmissionCleanup(EditText etMaterial, EditText etSpecs, EditText etQuantity, EditText etDeliveryDate, EditText etStockid, EditText etMeasure, EditText etName, EditText etExtra1, EditText etExtra2, EditText etExtra3, EditText etExtra4, EditText etExtra5, EditText etExtra6, PhotoView imgview){
+    etMaterial.getText().clear();
     etSpecs.getText().clear();
     etQuantity.getText().clear();
     etDeliveryDate.getText().clear();

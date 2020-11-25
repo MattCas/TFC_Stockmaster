@@ -8,7 +8,7 @@
     <string name="modify_entry">Eintrag Bearbeiten</string>
     <string name="qr_scan">QRCode Scannen</string>
     <string name="stock_id_lookup">Charge Nummer Suchen</string>
-    <string name="man_form_label">Neu manuell eintrag</string>
+    <string name="man_form_label">Neu Manuell Eintrag</string>
     <string name="set_date">Datum festlegen</string>
     <string name="submit">Einreichen</string>
     <string name="edit_entry_title">Zu ändernde Felder bearbeiten</string>

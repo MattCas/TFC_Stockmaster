@@ -7,7 +7,7 @@
     <string name="modify_entry">Edit Entry</string>
     <string name="qr_scan">Scan QRCode</string>
     <string name="stock_id_lookup">Search by Stock ID</string>
-    <string name="man_form_label">New manual entry</string>
+    <string name="man_form_label">New Manual Entry</string>
     <string name="set_date">Set Date</string>
     <string name="submit">Submit</string>
     <string name="edit_entry_title">Edit Fields to Amend</string>

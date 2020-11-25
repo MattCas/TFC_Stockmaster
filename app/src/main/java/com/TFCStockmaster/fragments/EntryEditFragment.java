@@ -66,7 +66,7 @@ public class EntryEditFragment extends Fragment {
                 // Show QR code in popup window
                 popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name,stockID,material,specs,measure,date));
                 // Reset EditText and ImageView after submission
-                ((MainActivity) getActivity()).postSubmissionCleanup(etSpecs, etQuantity, etDate, etStockID, etMeasure, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview);
+                ((MainActivity) getActivity()).postSubmissionCleanup(etMaterial, etSpecs, etQuantity, etDate, etStockID, etMeasure, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview);
             }
         });
         return view;

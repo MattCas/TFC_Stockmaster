@@ -30,26 +30,30 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/de_lang_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:text="German"></androidx.appcompat.widget.AppCompatButton>
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/germany"
+        android:radius="10dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="5dp">
+    </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/en_lang_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="English">
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:radius="50dp"
+        android:background="@drawable/us"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp">
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/db_test_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TestDB Status"
         android:layout_marginLeft="660dp"
-        >
-    </androidx.appcompat.widget.AppCompatButton>
+        android:text="TestDB Status"></androidx.appcompat.widget.AppCompatButton>
 
     <TextView
         android:id="@+id/db_status_label"
@@ -57,6 +61,7 @@
         android:layout_height="wrap_content"
         android:text="DB Status"
         android:layout_marginLeft="800dp"
+        android:textColor="#000000"
         android:layout_marginTop="20dp"></TextView>
 
     <ImageView

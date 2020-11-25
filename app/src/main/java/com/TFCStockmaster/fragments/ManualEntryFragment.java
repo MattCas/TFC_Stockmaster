@@ -123,8 +123,8 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared, specs, quantity, deliveryDate, name, extra1, extra2, extra3, extra4, extra5, extra6, imageurl);
                 // Show QR code popup window
                 popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name,stockidstring,material,spec_declared,specs,deliveryDate));
-                // Cleanup form
-                ((MainActivity) getActivity()).postSubmissionCleanup(etSpecs, etQuantity, etDeliveryDate, etStockid, etSpecDeclared, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imageView);
+                // Cleanup form - duplicate variable to recycle method
+                ((MainActivity) getActivity()).postSubmissionCleanup(etSpecs, etSpecs, etQuantity, etDeliveryDate, etStockid, etSpecDeclared, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imageView);
             }
         });
 
