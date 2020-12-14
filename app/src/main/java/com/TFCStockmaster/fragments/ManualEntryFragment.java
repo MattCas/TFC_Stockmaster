@@ -2,6 +2,7 @@ package com.TFCStockmaster.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,11 +37,13 @@ import com.TFCStockmaster.PopUpClass;
 import com.TFCStockmaster.R;
 import com.github.chrisbanes.photoview.PhotoView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     DatePickerDialog picker;
-    EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6;
+    EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, orderNumber;
     String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, imageurl, name;
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
     ImageView qrImgView;
@@ -48,6 +52,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
     Bitmap thumbnail;
     Uri imageUri;
     ContentValues values;
+    public List<String> resultList = new ArrayList<>();
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final int PICTURE_RESULT = 1;
@@ -107,11 +112,23 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         qrImgView                         = view.findViewById(R.id.popup_qr_view);
         imageView                         = view.findViewById(R.id.man_img_view);
 
+        orderNumber                       = view.findViewById(R.id.man_entry_order_number);
+
         // Setup material spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.categories_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMaterial.setAdapter(adapter);
         spinnerMaterial.setOnItemSelectedListener(this);
+
+        // Order Lookup button
+        final  Button orderLookupButton = view.findViewById(R.id.man_entry_lookup_button);
+        orderLookupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).purchaseDbLookup(orderNumber.getText().toString(), resultList);
+                listViewOpen(v);
+            }
+        });
 
         // Submit Button listener
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -290,5 +307,41 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    public void listViewOpen(View v){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        View row = getLayoutInflater().inflate(R.layout.row_item,null);
+        ListView lv = (ListView)row.findViewById(R.id.listView);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, resultList);
+
+        lv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        alertDialog.setView(row);
+        final AlertDialog dialog = alertDialog.create();
+        dialog.show();
+        Button exitButton = row.findViewById(R.id.listviewExitButton);
+
+        // List listener
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+                // When clicked, show a toast with the TextView text
+                //Toast.makeText(getContext(),((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+                        dialog.hide();
+                        adapter.clear();
+
+            }
+        });
+
+        // Exit button listener
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.hide();
+                adapter.clear();
+            }
+        });
+
     }
 }

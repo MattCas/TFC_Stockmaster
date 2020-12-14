@@ -42,6 +42,8 @@
     <string name="enter_stock_id">Bestätigen ChargeNr</string>
     <string name="enter_quantity">Bestätigen Quantität</string>
     <string name="enter_product_name">Bestätigen produkt name</string>
+    <string name="order_id">Belegnr Suchen</string>
+    <string name="order_id_hint">Belegnr</string>
 
     <string-array name="categories_array">
         <item>Carbonflies</item>

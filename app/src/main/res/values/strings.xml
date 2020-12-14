@@ -41,6 +41,8 @@
     <string name="enter_stock_id">Enter stock ID</string>
     <string name="enter_quantity">Enter quantity</string>
     <string name="enter_product_name">Enter product name</string>
+    <string name="order_id">Order ID search</string>
+    <string name="order_id_hint">Order ID</string>
 
     <string-array name="categories_array">
         <item>Carbonfiber</item>
@@ -50,5 +52,7 @@
         <item>Foam</item>
         <item>Hose</item>
     </string-array>
+
+    <string-array name="empty_array"></string-array>
 
 </resources>

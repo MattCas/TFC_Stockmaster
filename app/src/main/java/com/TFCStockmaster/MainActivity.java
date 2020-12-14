@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.TFCStockmaster.Database.ConnectionClass;
+import com.TFCStockmaster.Database.SqlAnywhereConnClass;
 import com.TFCStockmaster.fragments.CategoryEditFragment;
 import com.TFCStockmaster.fragments.NewEntryFragment;
 import com.TFCStockmaster.fragments.StockSearchFragment;
@@ -36,8 +37,12 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -200,6 +205,50 @@ public class MainActivity extends AppCompatActivity {
       Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
       Log.e("INSERT", e.getMessage());
     }
+  }
+
+
+  // Purchase DB lookup
+  public void purchaseDbLookup(String orderID, List<String> results) {
+    SqlAnywhereConnClass cc = new SqlAnywhereConnClass("mcas", "Gedumu49", "hsab_tcf_sbs", "192.168.2.4");
+    Connection cn = cc.getConnection();
+    Statement st = null;
+    ResultSet rs;
+    ResultSetMetaData rsmt;
+
+    try {
+      st = (Statement) cn.createStatement();
+      rs = st.executeQuery("SELECT menge_pe, text, plain_text, text_is_rtf FROM \"hs\".\"vk_beleg_pos\" WHERE belegnr =" + orderID);
+      while (rs.next()) {
+        StringBuilder lineResult = new StringBuilder();
+        Toast toast = Toast.makeText(getApplicationContext(), "Data Found", Toast.LENGTH_SHORT);
+        toast.show();
+
+        if (rs.getString("text") != null) {
+          Log.e("rtf name: ", rs.getString("text"));
+          lineResult.append(rs.getString("text"));
+        }
+
+        if (rs.getString("plain_text") != null) {
+          Log.e("plaintext name: ", rs.getString("plain_text"));
+          lineResult.append(rs.getString("plain_text"));
+        }
+
+        if (rs.getString("menge_pe") != null) {
+          Log.e("qnty: ", rs.getString("menge_pe"));
+          lineResult.append(rs.getString("menge_pe"));
+        }
+
+        Log.e("text is rtf: ", String.valueOf(rs.getBoolean("text_is_rtf")));
+        Log.e("column count", String.valueOf(rs.getMetaData().getColumnCount()));
+        results.add(lineResult.toString());
+      }
+    }
+      catch (SQLException ex) {
+      Log.e("Error here 1 : ", ex.getMessage());
+    }
+    //Log.e("arrayContents", sts.toString());
+    Log.e("arrayContents", results.toString());
   }
 
   // Start new fragment

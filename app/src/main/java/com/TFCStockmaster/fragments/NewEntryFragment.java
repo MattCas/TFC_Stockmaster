@@ -1,23 +1,15 @@
 package com.TFCStockmaster.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.TFCStockmaster.Database.SqlAnywhereConnClass;
 import com.TFCStockmaster.R;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class NewEntryFragment extends Fragment {
 
@@ -73,26 +65,8 @@ public class NewEntryFragment extends Fragment {
     scanButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        SqlAnywhereConnClass cc=new SqlAnywhereConnClass("mcas","Gedumu49", "hsab_tcf_sbs","192.168.2.4");
-        Connection cn= cc.getConnection();
-        Statement st=null;
-        ResultSet rs;
-        try {
-          st=(Statement) cn.createStatement();
-          rs=st.executeQuery("SELECT adressnr FROM \"hs\".\"std_firma\"");
-          if(rs.next())
-          {
-            Toast toast = Toast.makeText(getActivity(), "Data Found", Toast.LENGTH_SHORT);
-            toast.show();
-          }
-          else
-          {
-            Toast toast = Toast.makeText(getActivity(), "Data NOT Found", Toast.LENGTH_SHORT);
-            toast.show();
-          }
-        } catch (SQLException ex) {
-          Log.e("Error here 1 : ", ex.getMessage());
-        }
+
+
       }
     });
     return view;
