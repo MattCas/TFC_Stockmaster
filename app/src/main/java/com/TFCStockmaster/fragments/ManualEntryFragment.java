@@ -329,8 +329,6 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 // When clicked, show a toast with the TextView text
                 //Toast.makeText(getContext(),((TextView) view).getText(), Toast.LENGTH_SHORT).show();
                         dialog.hide();
-                        adapter.clear();
-
             }
         });
 
@@ -339,9 +337,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void onClick(View v) {
                 dialog.hide();
-                adapter.clear();
             }
         });
-
     }
 }

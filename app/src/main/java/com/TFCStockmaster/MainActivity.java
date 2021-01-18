@@ -215,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
     Statement st = null;
     ResultSet rs;
     ResultSetMetaData rsmt;
+    results.clear();
 
     try {
       st = (Statement) cn.createStatement();
@@ -226,16 +227,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (rs.getString("text") != null) {
           Log.e("rtf name: ", rs.getString("text"));
+          lineResult.append(" ");
           lineResult.append(rs.getString("text"));
         }
 
         if (rs.getString("plain_text") != null) {
           Log.e("plaintext name: ", rs.getString("plain_text"));
+          lineResult.append(" ");
           lineResult.append(rs.getString("plain_text"));
         }
 
         if (rs.getString("menge_pe") != null) {
           Log.e("qnty: ", rs.getString("menge_pe"));
+          lineResult.append(" ");
           lineResult.append(rs.getString("menge_pe"));
         }
 
