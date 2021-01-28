@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
       }
 
     }
-    catch (SQLException ex) {
+    catch (SQLException ex){
       Log.e("Error here 1 : ", ex.getMessage());
     }
     //Log.e("arrayContents", sts.toString());
