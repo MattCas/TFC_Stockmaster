@@ -33,7 +33,7 @@ public class SqlAnywhereConnClass {
 
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            ConectionURL="jdbc:jtds:odbc:driver={Adaptive Server Anywhere 9.0};ENG=ARCHIVO;UID=" + us + ";PWD="+ pass + ";DBN="+bd + ";LINK=TCPIP(HOST="+ip+":2638)";
+            //ConectionURL="jdbc:jtds:odbc:driver={Adaptive Server Anywhere 9.0};ENG=ARCHIVO;UID=" + us + ";PWD="+ pass + ";DBN="+bd + ";LINK=TCPIP(HOST="+ip+":2638)";
             con = DriverManager.getConnection("jdbc:jtds:sybase://192.168.2.4:2638;user=mcas;password=Gedumu49;databasename=tfc_neu;");
 
         }catch (SQLException se)

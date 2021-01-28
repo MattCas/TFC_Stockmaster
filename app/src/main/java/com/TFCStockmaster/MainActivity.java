@@ -219,12 +219,13 @@ public class MainActivity extends AppCompatActivity {
 
     try {
       st = (Statement) cn.createStatement();
-      rs = st.executeQuery("SELECT menge_pe, text, plain_text, text_is_rtf FROM \"hs\".\"vk_beleg_pos\" WHERE belegnr =" + orderID);
+      rs = st.executeQuery("SELECT menge_pe, text_is_rtf FROM \"hs\".\"vk_beleg_pos\" WHERE belegnr IN (" + orderID + ")");
+
       while (rs.next()) {
         StringBuilder lineResult = new StringBuilder();
         Toast toast = Toast.makeText(getApplicationContext(), "Data Found", Toast.LENGTH_SHORT);
         toast.show();
-
+/*
         if (rs.getString("text") != null) {
           Log.e("rtf name: ", rs.getString("text"));
           lineResult.append(" ");
@@ -237,18 +238,22 @@ public class MainActivity extends AppCompatActivity {
           lineResult.append(rs.getString("plain_text"));
         }
 
+
+ */
+
         if (rs.getString("menge_pe") != null) {
           Log.e("qnty: ", rs.getString("menge_pe"));
-          lineResult.append(" ");
+          // lineResult.append(" ");
           lineResult.append(rs.getString("menge_pe"));
         }
 
         Log.e("text is rtf: ", String.valueOf(rs.getBoolean("text_is_rtf")));
-        Log.e("column count", String.valueOf(rs.getMetaData().getColumnCount()));
+       // Log.e("column count", String.valueOf(rs.getMetaData().getColumnCount()));
         results.add(lineResult.toString());
       }
+
     }
-      catch (SQLException ex) {
+    catch (SQLException ex) {
       Log.e("Error here 1 : ", ex.getMessage());
     }
     //Log.e("arrayContents", sts.toString());
