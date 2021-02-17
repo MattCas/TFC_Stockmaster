@@ -149,6 +149,14 @@
         android:layout_marginLeft="520dp"
         android:text="Extra6" />
 
+    <TextView
+        android:id="@+id/editextraNotes"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="580dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/additional_notes" />
+
     <EditText
         android:id="@+id/edit_entry_material"
         android:layout_width="180dp"
@@ -271,6 +279,16 @@
         android:layout_marginTop="500dp"
         android:ems="10"
         android:hint="Extra6" />
+
+    <EditText
+        android:id="@+id/edit_entry_notes"
+        android:layout_width="580dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="570dp"
+        android:ems="10"
+        android:hint="@string/enter_notes" />
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/edit_img_view"

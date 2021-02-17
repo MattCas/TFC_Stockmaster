@@ -134,6 +134,14 @@
         android:layout_marginLeft="520dp"
         android:text="Extra6" />
 
+    <TextView
+        android:id="@+id/notesLabel"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="590dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/additional_notes" />
+
     <Spinner
         android:id="@+id/man_entry_material"
         android:layout_width="180dp"
@@ -235,6 +243,16 @@
         android:layout_marginTop="510dp"
         android:ems="10"
         android:hint="Extra4" />
+
+    <EditText
+        android:id="@+id/man_entry_notes"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="580dp"
+        android:ems="10"
+        android:hint="@string/enter_notes" />
 
     <EditText
         android:id="@+id/man_entry_extra5"

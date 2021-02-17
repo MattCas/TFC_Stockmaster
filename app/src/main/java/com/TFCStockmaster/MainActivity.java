@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
       }
 
     }
-    catch (SQLException ex){
+    catch (SQLException ex)    {
       Log.e("Error here 1 : ", ex.getMessage());
     }
     //Log.e("arrayContents", sts.toString());
@@ -436,13 +436,14 @@ public class MainActivity extends AppCompatActivity {
   }
 
   // Clear all fields
-  public void postSubmissionCleanup(EditText etMaterial, EditText etSpecs, EditText etQuantity, EditText etDeliveryDate, EditText etStockid, EditText etMeasure, EditText etName, EditText etExtra1, EditText etExtra2, EditText etExtra3, EditText etExtra4, EditText etExtra5, EditText etExtra6, PhotoView imgview){
+  public void postSubmissionCleanup(EditText etMaterial, EditText etSpecs, EditText etQuantity, EditText etDeliveryDate, EditText etStockid, EditText etMeasure, EditText etName, EditText etExtra1, EditText etExtra2, EditText etExtra3, EditText etExtra4, EditText etExtra5, EditText etExtra6, PhotoView imgview, EditText etNotes){
     etMaterial.getText().clear();
     etSpecs.getText().clear();
     etQuantity.getText().clear();
     etDeliveryDate.getText().clear();
     etStockid.getText().clear();
     etName.getText().clear();
+    etNotes.getText().clear();
     etMeasure.getText().clear();
     etExtra1.getText().clear();
     etExtra2.getText().clear();

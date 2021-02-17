@@ -43,8 +43,8 @@ import java.util.List;
 
 public class ManualEntryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     DatePickerDialog picker;
-    EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, orderNumber;
-    String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, imageurl, name;
+    EditText etDeliveryDate, etStockid, etSpecDeclared, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, orderNumber, etNotes;
+    String material, specs, deliveryDate, stockidstring, spec_declared, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, imageurl, name, notes;
     TextView tvExtra1, tvExtra2, tvExtra3, tvExtra4, tvExtra5, tvExtra6;
     ImageView qrImgView;
     PhotoView imageView;
@@ -103,6 +103,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         etQuantity                        = view.findViewById(R.id.man_entry_quantity);
         etStockid                         = view.findViewById(R.id.man_entry_stockid);
         etName                            = view.findViewById(R.id.man_entry_name);
+        etNotes                           = view.findViewById(R.id.man_entry_notes);
         etExtra1                          = view.findViewById(R.id.man_entry_extra1);
         etExtra2                          = view.findViewById(R.id.man_entry_extra2);
         etExtra3                          = view.findViewById(R.id.man_entry_extra3);
@@ -141,7 +142,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 // Show QR code popup window
                 popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name,stockidstring,material,spec_declared,specs,deliveryDate));
                 // Cleanup form - duplicate variable to recycle method
-                ((MainActivity) getActivity()).postSubmissionCleanup(etSpecs, etSpecs, etQuantity, etDeliveryDate, etStockid, etSpecDeclared, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imageView);
+                ((MainActivity) getActivity()).postSubmissionCleanup(etSpecs, etSpecs, etQuantity, etDeliveryDate, etStockid, etSpecDeclared, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imageView, etNotes);
             }
         });
 
@@ -245,6 +246,7 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         extra4                  = etExtra4.getText().toString();
         extra5                  = etExtra5.getText().toString();
         extra6                  = etExtra6.getText().toString();
+        notes                   = etNotes.getText().toString();
     }
 
     public void setExtraLabels(String lb1, String lb2, String lb3, String lb4, String lb5, String lb6){

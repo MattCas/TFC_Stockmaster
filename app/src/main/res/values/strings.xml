@@ -43,6 +43,8 @@
     <string name="enter_product_name">Enter product name</string>
     <string name="order_id">Order ID search</string>
     <string name="order_id_hint">Order ID</string>
+    <string name="enter_notes">Additional Notes</string>
+    <string name="additional_notes">Notes</string>
 
     <string-array name="categories_array">
         <item>Carbonfiber</item>

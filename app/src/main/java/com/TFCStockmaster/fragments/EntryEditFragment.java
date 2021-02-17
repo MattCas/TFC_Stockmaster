@@ -16,7 +16,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 public class EntryEditFragment extends Fragment {
 
-    String material, specs, measure, date, stockID, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, name;
+    String material, specs, measure, date, stockID, quantity, photoid, extra1, extra2, extra3, extra4, extra5, extra6, name, notes;
     PopUpClass popUpClass = new PopUpClass();
 
     // Required empty public constructor
@@ -42,6 +42,7 @@ public class EntryEditFragment extends Fragment {
         final EditText etExtra5                = view.findViewById(R.id.edit_entry_extra5);
         final EditText etExtra6                = view.findViewById(R.id.edit_entry_extra6);
         final EditText etName                  = view.findViewById(R.id.edit_entry_name);
+        final EditText etNotes                 = view.findViewById(R.id.edit_entry_notes);
         final PhotoView imgview              = view.findViewById(R.id.edit_img_view);
 
         // Retrieve entry button listener
@@ -66,7 +67,7 @@ public class EntryEditFragment extends Fragment {
                 // Show QR code in popup window
                 popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name,stockID,material,specs,measure,date));
                 // Reset EditText and ImageView after submission
-                ((MainActivity) getActivity()).postSubmissionCleanup(etMaterial, etSpecs, etQuantity, etDate, etStockID, etMeasure, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview);
+                ((MainActivity) getActivity()).postSubmissionCleanup(etMaterial, etSpecs, etQuantity, etDate, etStockID, etMeasure, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview, etNotes);
             }
         });
         return view;
