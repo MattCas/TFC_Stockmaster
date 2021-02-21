@@ -99,11 +99,10 @@ public class MainActivity extends AppCompatActivity {
   }
 
 
-
   // Search DB by stockID
   // TODO Return results as usable variables, rather than void method
   public void SearchDB(View view, String stockID, EditText material, EditText specs, EditText measure, EditText quantity, EditText date, EditText name,
-                       EditText extra1, EditText extra2, EditText extra3, EditText extra4, EditText extra5, EditText extra6, ImageView deliverynoteview) {
+                       EditText extra1, EditText extra2, EditText extra3, EditText extra4, EditText extra5, EditText extra6, ImageView deliverynoteview, EditText notes) {
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
@@ -130,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
           extra5.setText(rs.getString("extra_spez5"));
           extra6.setText(rs.getString("extra_spez6"));
           photourl = (rs.getString("fotoid"));
+          notes.setText(rs.getString("notes"));
         }
         Log.e("ASK", "------------------");
         loadImageFromLocalStore(photourl, deliverynoteview);
@@ -145,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   // Insert into DB
-  public void InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String name, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto) {
+  public int InsertDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String name, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto, String notes) {
+    int insertOutcome = 0;
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
@@ -155,28 +156,34 @@ public class MainActivity extends AppCompatActivity {
         Statement stmt = ConnectionClass.con.createStatement();
         // SQL statement
         String sql = "insert INTO StockTable VALUES('" + stockid + "','" + material + "','" + spec_declared +
-                "','" + specs + "','" + quantity + "','" + deliveryDate + "','" + name +"','" + extra1 + "','" + extra2 + "','" + extra3 +
-                "','" + extra4 + "','" + extra5 + "','" + extra6 + "','" + deliveryNotePhoto + "', getDate());";
+                "','" + specs + "','" + quantity + "','" + deliveryDate + "','" + name + "','" + extra1 + "','" + extra2 + "','" + extra3 +
+                "','" + extra4 + "','" + extra5 + "','" + extra6 + "','" + deliveryNotePhoto + "', getDate(),'" + notes +"' );";
         int res = stmt.executeUpdate(sql);
         Log.e("DBCOM", sql);
         // Debug elseif
         if (res == 0) {
           Log.e("INSERT", "Inserted Failed");
+          insertOutcome = res;
         } else {
           Log.e("INSERT", "Inserted Normally");
+          Toast.makeText(getApplicationContext(), "Insert Query executed successfully", Toast.LENGTH_LONG).show();
+          insertOutcome = res;
         }
-        Toast.makeText(getApplicationContext(), "Insert Query executed successfully", Toast.LENGTH_LONG).show();
+
       } else {
         Toast.makeText(getApplicationContext(), "Connection to server failed!", Toast.LENGTH_LONG).show();
+        insertOutcome = 0;
       }
     } catch (Exception e) {
       Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
       Log.e("INSERT", e.getMessage());
     }
+    return insertOutcome;
   }
 
   // Replace into DB using StockID as primary key
-  public void ReplaceDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String name, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto) {
+  public int ReplaceDB(View view, String stockid, String material, String spec_declared, String specs, String quantity, String deliveryDate, String name, String extra1, String extra2, String extra3, String extra4, String extra5, String extra6, String deliveryNotePhoto, String notes) {
+    int replaceOutcome = 0;
     try {
       if (ConnectionClass.con == null) {
         new ConnectionClass().setConnection();
@@ -187,24 +194,29 @@ public class MainActivity extends AppCompatActivity {
         // SQL statement
         String sql = "UPDATE StockTable SET stockid = '"+ stockid +"', material = '"+ material +"', menge = '"+ spec_declared +"', einheit = '"+ specs +"', quantitaet = '"+ quantity +"', " +
                 "lieferdatum = '"+ deliveryDate +"', produktname = '"+ name +"', extra_spez1 = '"+ extra1 +"', extra_spez2 = '"+ extra2 +"', extra_spez3 = '"+ extra3 +"', extra_spez4 = '"+ extra4 +"', " +
-                "extra_spez5 = '"+ extra5 +"', extra_spez6 = '"+ extra6 +"' WHERE stockid = '"+ stockid +"'";
+                "extra_spez5 = '"+ extra5 +"', extra_spez6 = '"+ extra6 + "', notes = '"+ notes +"' WHERE stockid = '"+ stockid +"'";
         Log.e("DBCOM", sql);
         int res = stmt.executeUpdate(sql);
 
         // Debug elseif
         if (res == 0) {
           Log.e("INSERT", "Inserted Failed");
+          replaceOutcome = res;
         } else {
           Log.e("INSERT", "Inserted Normally");
+          replaceOutcome = res;
         }
         Toast.makeText(getApplicationContext(), "Insert Query executed successfully", Toast.LENGTH_LONG).show();
       } else {
         Toast.makeText(getApplicationContext(), "Connection to server failed!", Toast.LENGTH_LONG).show();
+        replaceOutcome = 0;
       }
     } catch (Exception e) {
       Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
       Log.e("INSERT", e.getMessage());
+      replaceOutcome = 0;
     }
+    return replaceOutcome;
   }
 
 

@@ -138,11 +138,13 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
                 // Must be passed in method because they're final vars
                 assignSubmitFields(etSpecs, etDeliveryDate);
                 // DB entry code
-                ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared, specs, quantity, deliveryDate, name, extra1, extra2, extra3, extra4, extra5, extra6, imageurl);
+                int insertOutcome = ((MainActivity) getActivity()).InsertDB(view,stockidstring, material, spec_declared, specs, quantity, deliveryDate, name, extra1, extra2, extra3, extra4, extra5, extra6, imageurl, notes);
                 // Show QR code popup window
-                popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name,stockidstring,material,spec_declared,specs,deliveryDate));
-                // Cleanup form - duplicate variable to recycle method
-                ((MainActivity) getActivity()).postSubmissionCleanup(etSpecs, etSpecs, etQuantity, etDeliveryDate, etStockid, etSpecDeclared, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imageView, etNotes);
+                if (insertOutcome == 1) {
+                    popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name, stockidstring, material, spec_declared, specs, deliveryDate));
+                    // Cleanup form - duplicate variable to recycle method
+                    ((MainActivity) getActivity()).postSubmissionCleanup(etSpecs, etSpecs, etQuantity, etDeliveryDate, etStockid, etSpecDeclared, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imageView, etNotes);
+                }
             }
         });
 

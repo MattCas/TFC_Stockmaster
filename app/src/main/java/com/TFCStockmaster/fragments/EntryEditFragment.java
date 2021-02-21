@@ -51,7 +51,7 @@ public class EntryEditFragment extends Fragment {
             public void onClick(View view) {
                 stockID = etStockID.getText().toString();
                 // Code to retrieve entry details
-                ((MainActivity) getActivity()).SearchDB(view, stockID, etMaterial, etSpecs, etMeasure, etQuantity, etDate, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview);
+                ((MainActivity) getActivity()).SearchDB(view, stockID, etMaterial, etSpecs, etMeasure, etQuantity, etDate, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview, etNotes);
             }
         });
 
@@ -60,20 +60,22 @@ public class EntryEditFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Sets text from EditText to string variables
-                assignSubmitFields(etMaterial, etSpecs, etDate, etMeasure, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6);
+                assignSubmitFields(etMaterial, etSpecs, etDate, etMeasure, etQuantity, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, etNotes);
                 // Edit entry in DB via SQL query
-                ((MainActivity) getActivity()).ReplaceDB(view,stockID, material, specs,
-                        measure, quantity, date, name, extra1, extra2, extra3, extra4, extra5, extra6, "getPhotoURLHereSomehow");
-                // Show QR code in popup window
-                popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name,stockID,material,specs,measure,date));
-                // Reset EditText and ImageView after submission
-                ((MainActivity) getActivity()).postSubmissionCleanup(etMaterial, etSpecs, etQuantity, etDate, etStockID, etMeasure, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview, etNotes);
+                int editOutcome = ((MainActivity) getActivity()).ReplaceDB(view,stockID, material, specs,
+                        measure, quantity, date, name, extra1, extra2, extra3, extra4, extra5, extra6, "getPhotoURLHereSomehow", notes);
+                if (editOutcome == 1) {
+                    // Show QR code in popup window
+                    popUpClass.showPopupWindow(view, ((MainActivity) getActivity()).makeQRCode(name, stockID, material, specs, measure, date));
+                    // Reset EditText and ImageView after submission
+                    ((MainActivity) getActivity()).postSubmissionCleanup(etMaterial, etSpecs, etQuantity, etDate, etStockID, etMeasure, etName, etExtra1, etExtra2, etExtra3, etExtra4, etExtra5, etExtra6, imgview, etNotes);
+                }
             }
         });
         return view;
     }
     // Sets String variable values to text in EditText vars
-    public void assignSubmitFields(EditText etMaterial, EditText etSpecs, EditText etDate, EditText etMeasure, EditText etQuantity, EditText etName, EditText etExtra1, EditText etExtra2, EditText etExtra3, EditText etExtra4, EditText etExtra5, EditText etExtra6){
+    public void assignSubmitFields(EditText etMaterial, EditText etSpecs, EditText etDate, EditText etMeasure, EditText etQuantity, EditText etName, EditText etExtra1, EditText etExtra2, EditText etExtra3, EditText etExtra4, EditText etExtra5, EditText etExtra6, EditText etNotes){
         // Create string entries for DB command and invoke DB insertion method
         material                  = etMaterial.getText().toString();
         specs                     = etSpecs.getText().toString();
@@ -88,5 +90,6 @@ public class EntryEditFragment extends Fragment {
         extra4                    = etExtra4.getText().toString();
         extra5                    = etExtra5.getText().toString();
         extra6                    = etExtra6.getText().toString();
+        notes                     = etNotes.getText().toString();
     }
 }
