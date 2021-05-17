@@ -230,43 +230,51 @@ public class MainActivity extends AppCompatActivity {
     results.clear();
 
     try {
-      st = (Statement) cn.createStatement();
-      rs = st.executeQuery("SELECT menge_pe, text_is_rtf FROM \"hs\".\"vk_beleg_pos\" WHERE belegnr IN (" + orderID + ")");
+      st = cn.createStatement();
+      rs = st.executeQuery("SELECT menge_pe, SUBSTR(vk_beleg_pos.text,1,5) FROM \"hs\".\"vk_beleg_pos\" WHERE belegnr = " + orderID +"  AND menge_pe IS NOT NULL AND text_is_rtf = 0");
+                //SUBSTR(full_name, 1, 32)
+
 
       while (rs.next()) {
         StringBuilder lineResult = new StringBuilder();
-        Toast toast = Toast.makeText(getApplicationContext(), "Data Found", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(), "Data Found", Toast.LENGTH_LONG);
         toast.show();
+// Errors could be about size, precision or the NULL marker in the result set
+
+        if (rs.getInt("menge_pe") != 0) {
+          //Log.e("qnty: ", rs.getFloat("menge_pe"));
+          lineResult.append(" ");
+          lineResult.append(rs.getInt("menge_pe"));
+        }
+
+        if (rs.getString("SUBSTR(vk_beleg_pos.text,1,5)") != null) {
+          Log.e("rtf name: ", rs.getString("SUBSTR(vk_beleg_pos.text,1,5)"));
+          lineResult.append(" ");
+          lineResult.append(rs.getString("SUBSTR(vk_beleg_pos.text,1,5)"));
+        }
+
 /*
-        if (rs.getString("text") != null) {
-          Log.e("rtf name: ", rs.getString("text"));
+        if (rs.getString("SUBSTR(vk_beleg_pos.plain_text,1,5)") != null) {
+          Log.e("plaintext name: ", rs.getString("SUBSTR(vk_beleg_pos.plain_text,1,5)"));
           lineResult.append(" ");
-          lineResult.append(rs.getString("text"));
+          lineResult.append(rs.getString("SUBSTR(vk_beleg_pos.plain_text,1,5)"));
         }
 
-        if (rs.getString("plain_text") != null) {
-          Log.e("plaintext name: ", rs.getString("plain_text"));
-          lineResult.append(" ");
-          lineResult.append(rs.getString("plain_text"));
-        }
-
-
- */
 
         if (rs.getString("menge_pe") != null) {
           Log.e("qnty: ", rs.getString("menge_pe"));
           // lineResult.append(" ");
           lineResult.append(rs.getString("menge_pe"));
         }
-
-        Log.e("text is rtf: ", String.valueOf(rs.getBoolean("text_is_rtf")));
+*/
+        //Log.e("text is rtf: ", String.valueOf(rs.getBoolean("text_is_rtf")));
        // Log.e("column count", String.valueOf(rs.getMetaData().getColumnCount()));
         results.add(lineResult.toString());
       }
 
     }
     catch (SQLException ex)    {
-      Log.e("Error here 1 : ", ex.getMessage());
+      Log.e("SQLAnywhere error : ", ex.getMessage());
     }
     //Log.e("arrayContents", sts.toString());
     Log.e("arrayContents", results.toString());
