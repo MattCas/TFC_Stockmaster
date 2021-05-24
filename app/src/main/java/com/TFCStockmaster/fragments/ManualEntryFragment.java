@@ -312,36 +312,49 @@ public class ManualEntryFragment extends Fragment implements AdapterView.OnItemS
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+    /*
+    Method opens a list view after an orderID is searched, displays results if any were found
+    */
+    public void listViewOpen(View v) {
+        if (resultList != null && !resultList.isEmpty()) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            View row = getLayoutInflater().inflate(R.layout.row_item, null);
+            ListView lv = (ListView) row.findViewById(R.id.listView);
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, resultList);
 
-    public void listViewOpen(View v){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-        View row = getLayoutInflater().inflate(R.layout.row_item,null);
-        ListView lv = (ListView)row.findViewById(R.id.listView);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, resultList);
+            lv.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
-        lv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+            alertDialog.setView(row);
+            final AlertDialog dialog = alertDialog.create();
+            dialog.show();
+            Button exitButton = row.findViewById(R.id.listviewExitButton);
 
-        alertDialog.setView(row);
-        final AlertDialog dialog = alertDialog.create();
-        dialog.show();
-        Button exitButton = row.findViewById(R.id.listviewExitButton);
+            // List listener
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // When clicked, show a toast with the TextView text
+                    //Toast.makeText(getContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+                    setQty(((TextView) view).getText());
+                    dialog.hide();
+                }
+            });
 
-        // List listener
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                // When clicked, show a toast with the TextView text
-                //Toast.makeText(getContext(),((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-                        dialog.hide();
-            }
-        });
+            // Exit button listener
+            exitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.hide();
+                }
+            });
+        }
+        else{
+            // Display data not found message
+            Toast.makeText(getContext(), "RESULT DATASET EMPTY", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-        // Exit button listener
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.hide();
-            }
-        });
+    public void setQty(CharSequence s){
+        etQuantity.setText(s);
     }
 }

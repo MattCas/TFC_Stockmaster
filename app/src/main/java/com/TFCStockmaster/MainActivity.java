@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
 
     try {
       st = cn.createStatement();
-      rs = st.executeQuery("SELECT menge_pe, SUBSTR(vk_beleg_pos.text,1,5) FROM \"hs\".\"vk_beleg_pos\" WHERE belegnr = " + orderID +"  AND menge_pe IS NOT NULL AND text_is_rtf = 0");
+      rs = st.executeQuery("SELECT menge_pe FROM \"hs\".\"vk_beleg_pos\" WHERE belegnr = " + orderID +"  AND menge_pe IS NOT NULL");
                 //SUBSTR(full_name, 1, 32)
 
 
@@ -246,14 +246,14 @@ public class MainActivity extends AppCompatActivity {
           lineResult.append(" ");
           lineResult.append(rs.getInt("menge_pe"));
         }
-
+/*
         if (rs.getString("SUBSTR(vk_beleg_pos.text,1,5)") != null) {
           Log.e("rtf name: ", rs.getString("SUBSTR(vk_beleg_pos.text,1,5)"));
           lineResult.append(" ");
           lineResult.append(rs.getString("SUBSTR(vk_beleg_pos.text,1,5)"));
         }
 
-/*
+
         if (rs.getString("SUBSTR(vk_beleg_pos.plain_text,1,5)") != null) {
           Log.e("plaintext name: ", rs.getString("SUBSTR(vk_beleg_pos.plain_text,1,5)"));
           lineResult.append(" ");
